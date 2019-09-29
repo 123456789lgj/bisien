@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="40dp"
+    android:orientation="horizontal">
+    <LinearLayout android:layout_weight="1"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tvRealTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pop_normal"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="实时告警"
+            android:tag="-1"
+            android:textSize="14sp" />
+    </LinearLayout>
+    <LinearLayout android:layout_weight="1"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tvUrgent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pop_normal"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="紧急告警"
+            android:tag="3"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_weight="1"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tvImportant"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pop_normal"
+            android:gravity="center"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="重要告警"
+            android:tag="2"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+    <LinearLayout android:layout_weight="1"
+        android:layout_width="0dp"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="@color/white"
+        android:layout_height="40dp">
+        <TextView
+            android:id="@+id/tvGeneral"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/pop_normal"
+            android:gravity="center"
+            android:paddingLeft="7dp"
+            android:paddingRight="7dp"
+            android:text="一般告警"
+            android:tag="1"
+            android:textSize="14sp" />
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

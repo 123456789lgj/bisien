@@ -1,0 +1,81 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/text_press</item>
+        <item name="colorPrimaryDark">@color/text_press</item>
+        <item name="colorAccent">#2699fb</item>
+
+    </style>
+    <!--Activity全屏的样式-->
+    <style name="lgjTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@null</item>
+        <item name="android:background">@color/white</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+
+    <!--
+       这种设置Dialog没有透明度的，完全展示在界面上
+     <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:background">@null</item>
+        <item name="android:windowBackground">@null</item>
+
+        <item name="android:backgroundDimEnabled">false</item>
+    -->
+    <!--
+    此属性是控制背景是否变暗，false是没有透明的背景
+         <item name="android:backgroundDimEnabled">false</item>
+    -->
+    <!--loading框的样式-->
+    <style name="progress_dialog" parent="Theme.AppCompat.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:background">@null</item>
+    </style>
+    <!-- 设置TabLayout 文字的大小-->
+    <style name="TabLayoutTextStyle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+
+
+
+
+
+
+
+<!--控制门禁开关文字的颜色-->
+    <style name="s_true" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/em_alarm</item>
+    </style>
+    <style name="s_false" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/count_green</item>
+    </style>
+
+    <!--归属地弹窗样式-->
+    <style name="AlarmFilterDialogManyMore" parent="Theme.AppCompat.Dialog">
+        <!--去掉标题栏-->
+        <item name="android:windowNoTitle">true</item>
+        <!--去掉背景-->
+        <item name="android:windowBackground">@color/white</item>
+    </style>
+
+    <!--归属地弹窗样式-->
+    <style name="AlarmFilterDialog" parent="Theme.AppCompat.Dialog">
+        <!--去掉标题栏-->
+        <item name="android:windowNoTitle">true</item>
+        <!--去掉背景-->
+        <item name="android:windowBackground">@drawable/shap_dialog_bg</item>
+    </style>
+
+
+
+</resources>

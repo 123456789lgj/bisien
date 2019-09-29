@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activity.AppServiceActivity">
+
+
+    <TextView
+        android:id="@+id/service"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/text_press"
+        android:gravity="center"
+        android:text="服务"
+
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="公司名称：西安必思恩能源科技有限公司"
+        android:textColor="@color/fragment_my_textcolor"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="公司官网：http://www.bisien.com"
+        android:textColor="@color/fragment_my_textcolor"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="联系电话：400-607-0711"
+        android:textColor="@color/fragment_my_textcolor"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="公司地址：西安高新区草堂科技产业基地"
+        android:textColor="@color/fragment_my_textcolor"
+        android:textSize="18sp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:text="                     秦岭大道西2号07幢"
+        android:textColor="@color/fragment_my_textcolor"
+        android:textSize="18sp" />
+
+</LinearLayout>

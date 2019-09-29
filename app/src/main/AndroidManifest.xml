@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.bisien.dems">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <application
+        android:name=".activity.application.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="false"
+        android:theme="@style/AppTheme">
+        <activity android:name=".activity.PowerDisttibuteActivity"></activity>
+        <activity android:name=".activity.UpsActivity" />
+        <activity android:name=".activity.CondiditioningActivity" />
+        <activity android:name=".activity.FireActivity" />
+        <activity android:name=".activity.EnvironmentActivity" />
+        <activity android:name=".activity.PowerSystemActivity" />
+        <activity android:name=".activity.AccessControlActivity" />
+        <activity android:name=".activity.AssetsManagerActivity" />
+        <activity android:name=".activity.DemsActivity" />
+        <activity android:name=".activity.AppServiceActivity" />
+        <activity android:name=".activity.ChangePasswordActivity" />
+        <activity android:name=".activity.VersionInfoActivity" /> <!-- launchMode="singleTask" 这样是为了退出登录之后，清除掉上面的MainActivity -->
+        <activity android:name=".activity.LoginActivity" />
+        <activity
+            android:name=".activity.SplashActivity"
+            android:theme="@style/lgjTheme">
+
+            <!-- 这种设置不会出现短暂的状态栏android:theme="@android:style/Theme.NoTitleBar.Fullscreen"" -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".activity.MainActivity"
+            android:launchMode="singleTask" />
+    </application>
+
+</manifest>

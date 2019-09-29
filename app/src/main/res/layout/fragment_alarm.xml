@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:background="@color/text_press"
+        android:layout_height="48dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@mipmap/ic_menu"
+            android:layout_alignParentRight="true"
+            android:padding="16dp"
+            android:id="@+id/filterDeviceAndManyMore"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/personalCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="告警"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/rlAnchor"
+        android:layout_height="40dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_height="40dp">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:id="@+id/currentFilterIm"
+                android:layout_height="40dp">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:text="实时告警"
+                    android:id="@+id/tvCurrentAlarm"
+                    android:textColor="@color/black"
+                    android:textSize="14sp"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:src="@mipmap/down_arrow"
+                    android:id="@+id/ivFilterLevel"
+                    android:layout_marginLeft="4dp"
+                    android:visibility="invisible"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <TextView
+                android:layout_marginLeft="54dp"
+                android:layout_width="wrap_content"
+                android:text="历史告警"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:id="@+id/tvHistoryAlarm"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:background="@color/gb_gray"
+            android:layout_height="1dp">
+            <View
+                android:id="@+id/scrollDivide"
+                android:layout_width="wrap_content"
+                android:background="@color/text_press"
+                android:layout_marginLeft="90dp"
+                android:layout_height="1dp">
+            </View>
+        </RelativeLayout>
+    </RelativeLayout>
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:id="@+id/viewPagerAlarm"
+        android:layout_height="match_parent">
+    </androidx.viewpager.widget.ViewPager>
+
+
+</LinearLayout>

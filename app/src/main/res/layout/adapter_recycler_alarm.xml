@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="告警尚未处理"
+            android:id="@+id/alarmNotBeenProcessed"
+            android:textColor="@color/em_alarm"
+            android:textSize="12dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="8dp"
+            android:textStyle="bold"
+            android:singleLine="true"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:src="@mipmap/ic_options"
+            android:id="@+id/ivOptions"
+            android:paddingTop="13dp"
+            android:paddingBottom="7dp"
+            android:paddingRight="8dp"
+            android:paddingLeft="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:text="局站A，二楼实验室，烟温采集器，烟感告警"
+        android:layout_marginTop="8dp"
+        android:id="@+id/alarmInfo"
+        android:textSize="12dp"
+        android:layout_marginLeft="8dp"
+        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+   <RelativeLayout
+       android:layout_width="match_parent"
+       android:layout_marginTop="8dp"
+       android:layout_marginBottom="8dp"
+       android:layout_marginLeft="8dp"
+       android:layout_height="wrap_content">
+       <TextView
+           android:layout_width="wrap_content"
+           android:id="@+id/alarmGrade"
+           android:text="紧急"
+           android:textSize="10dp"
+           android:textColor="@color/em_alarm"
+           android:layout_height="wrap_content" />
+       <TextView
+           android:layout_width="wrap_content"
+           android:id="@+id/alarmTime"
+           android:text="2019-07-23  12:54:50"
+           android:textColor="@color/black"
+           android:textSize="10dp"
+           android:layout_alignParentRight="true"
+           android:layout_marginRight="8dp"
+           android:layout_height="wrap_content" />
+   </RelativeLayout>
+    <View
+        android:layout_width="match_parent"
+        android:background="@color/gb_gray"
+        android:layout_height="8px"/>
+
+
+</LinearLayout>
