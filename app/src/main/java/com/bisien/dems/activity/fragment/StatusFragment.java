@@ -17,6 +17,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.bisien.dems.R;
 import com.bisien.dems.activity.CondiditioningActivity;
 import com.bisien.dems.activity.PowerDisttibuteActivity;
+import com.bisien.dems.activity.StatusEnvActivity;
 import com.bisien.dems.activity.UpsActivity;
 import com.bisien.dems.activity.animal.CardTransformer;
 import com.bisien.dems.activity.bean.CustomBean;
@@ -119,7 +120,7 @@ public class StatusFragment extends BaseFragment {
         }
         if(dataBean.getThs() != null){
             CustomBean customBean = new CustomBean();
-            customBean.setEquipmentName("温湿度感应器");//空调
+            customBean.setEquipmentName("环境");//空调
             customBean.setEquipmentCounts(dataBean.getThs().getCount()+"");//设备总数
             customBean.setRunEquipmentCounts(dataBean.getThs().getParam2()+"");//运行数量
             customBean.setEquipmentAlarm(dataBean.getThsAlarm()+"");//报警数量，如果为0，web端，就显示正常，否则就显示异常
@@ -239,11 +240,11 @@ public class StatusFragment extends BaseFragment {
                     intent.putExtra("category",dataList.get(index).getCategory());
                     break;
                 case 3:
+                    intent.setClass(UiUtils.getContext(), StatusEnvActivity.class);
+                    intent.putExtra("category",dataList.get(index).getCategory());
                     break;
             }
-            if (index == 0 || index == 1 || index == 2){
                 startActivity(intent);
-            }
         }
     };
 

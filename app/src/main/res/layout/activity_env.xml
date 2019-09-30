@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        layout="@layout/head_title"
+        android:layout_width="match_parent"
+        android:layout_height="48dp" />
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:id="@+id/rlPdu"
+                android:background="@drawable/shap_dialog_bg"
+                android:translationZ="4dp">
+
+                <ImageView
+                    android:id="@+id/ivTempertrueLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="40dp"
+                    android:src="@mipmap/env_temperature" />
+
+                <TextView
+                    android:id="@+id/tvTempertrueName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/ivTempertrueLeft"
+                    android:text="温湿度感应器-1"
+                    android:textColor="@color/status_environment"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/tempertrueDownArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/tvTempertrueName"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="8dp"
+                    android:src="@mipmap/env_down_arrow" />
+
+                <TextView
+                    android:id="@+id/tvTempertrueHouseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempertrueName"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/ivTempertrueLeft"
+                    android:text="数据机房A"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tvTempertrueCommStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempertrueHouseName"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_toRightOf="@+id/ivTempertrueLeft"
+                    android:text="通讯状态"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTempertrueHouseName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/tvTempertrueCommStatus"
+                    android:text="正常"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/tempertrueRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shap_dialog_bg"
+                android:translationZ="4dp"></androidx.recyclerview.widget.RecyclerView>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/shap_dialog_bg"
+                android:translationZ="4dp">
+
+                <ImageView
+                    android:id="@+id/ivFloodingLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="14dp"
+                    android:src="@mipmap/env_flooding" />
+
+                <TextView
+                    android:id="@+id/tvFloodingName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="62dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/ivFloodingLeft"
+                    android:text="水浸感应器-1"
+                    android:textColor="@color/status_environment"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/floodingDownArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/tvFloodingName"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="8dp"
+                    android:src="@mipmap/env_down_arrow" />
+
+                <TextView
+                    android:id="@+id/tvFloodingHouseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFloodingName"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/ivFloodingLeft"
+                    android:text="数据机房A"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tvFloodingCommStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFloodingHouseName"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_toRightOf="@+id/ivFloodingLeft"
+                    android:text="通讯状态"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFloodingHouseName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/tvFloodingCommStatus"
+                    android:text="正常"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/floodingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shap_dialog_bg"
+                android:translationZ="4dp"></androidx.recyclerview.widget.RecyclerView>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:background="@drawable/shap_dialog_bg"
+                android:translationZ="4dp">
+
+                <ImageView
+                    android:id="@+id/ivSmookingLeft"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginBottom="14dp"
+                    android:src="@mipmap/env_smooking" />
+
+                <TextView
+                    android:id="@+id/tvSmookingName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/ivSmookingLeft"
+                    android:text="烟感-1"
+                    android:textColor="@color/status_environment"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+                <ImageView
+                    android:id="@+id/smookingDownArrow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="11dp"
+                    android:layout_toRightOf="@+id/tvSmookingName"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="8dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="8dp"
+                    android:src="@mipmap/env_down_arrow" />
+
+                <TextView
+                    android:id="@+id/tvSmookingHouseName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvSmookingName"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/ivSmookingLeft"
+                    android:text="数据机房A"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:id="@+id/tvSmookingCommStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvSmookingHouseName"
+                    android:layout_marginLeft="60dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_toRightOf="@+id/ivSmookingLeft"
+                    android:text="通讯状态"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvSmookingHouseName"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_toRightOf="@+id/tvSmookingCommStatus"
+                    android:text="正常"
+                    android:textColor="@color/status_environment"
+                    android:textSize="14dp" />
+            </RelativeLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/smookingRecyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/shap_dialog_bg"
+                android:translationZ="4dp"></androidx.recyclerview.widget.RecyclerView>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+</LinearLayout>

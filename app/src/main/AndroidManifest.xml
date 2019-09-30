@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="false"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.PowerDisttibuteActivity"></activity>
+        <activity android:name=".activity.StatusEnvActivity"></activity>
+        <activity android:name=".activity.PowerDisttibuteActivity" />
         <activity android:name=".activity.UpsActivity" />
         <activity android:name=".activity.CondiditioningActivity" />
         <activity android:name=".activity.FireActivity" />

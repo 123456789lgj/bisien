@@ -45,7 +45,9 @@ public class DialogLoading {
 //        dialog.setCancelable(false);
         //此方法是点击外围不会消失，但是点击返回键一样消失
 //        dialog.setCanceledOnTouchOutside(false);
-        dialog.show();
+        if(activity != null && !activity.isFinishing()){
+            dialog.show();
+        }
     }
     // Android 中dismiss 和hide的区别在于，dismiss释放dialog中的内存，而hide不释放内存，Activity退出之前必须调用dialog的dismiss方法
     public void dismissLoading(){
