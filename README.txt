@@ -17,3 +17,4 @@
 
 git status 查看本地没有提交的代码，
 git config --global user.email "897617479@qq.com"
+git log 查看提交日志信息
