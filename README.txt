@@ -18,3 +18,7 @@
 git status 查看本地没有提交的代码，
 git config --global user.email "897617479@qq.com"
 git log 查看提交日志信息
+
+git add . 添加要提交的文件
+git commit -m "修改了那些内容进行说明"
+git push 提交到远程服务器
