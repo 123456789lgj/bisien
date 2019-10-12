@@ -8,51 +8,47 @@
     tools:context=".activity.AppServiceActivity">
 
 
-    <TextView
-        android:id="@+id/service"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/text_press"
-        android:gravity="center"
-        android:text="服务"
-
-        android:textColor="@color/white"
-        android:textSize="18sp" />
+    <include android:layout_width="match_parent" android:layout_height="48dp" layout="@layout/head_title"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="公司名称：西安必思恩能源科技有限公司"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:layout_marginTop="60dp"
+        android:layout_marginLeft="40dp"
+        android:text="公司名称：西安盛弘必思恩科技有限公司"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
         android:text="公司官网：http://www.bisien.com"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:textSize="14sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="联系电话：400-607-0711"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
+        android:text="联系电话：400-836-9636"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:text="公司地址：西安高新区草堂科技产业基地"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:text="                     秦岭大道西2号07幢"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:textColor="@color/black"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="16dp"
+        android:textSize="14sp" />
 
 </LinearLayout>

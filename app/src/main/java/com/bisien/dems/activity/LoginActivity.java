@@ -200,6 +200,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
 //                    saveAccount(username, password);
                     Gson gson = new Gson();
                     LoginUserBean loginUserBean = gson.fromJson(response, LoginUserBean.class);
+
                     if (loginUserBean != null){
                         String code = loginUserBean.getCode();
                         if ("0".equals(code)){
@@ -217,6 +218,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener{
                             }
 //                            把用户id保存到全局变量里面，然后根据这个id进行修改密码
                             MyApplication.userId = id;
+                            MyApplication.userPassword = (String) loginUserBean.getData().getPassword();
                             Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent);
                             finish();

@@ -3,6 +3,7 @@ package com.bisien.dems.activity.fragment;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Rect;
+import android.net.Uri;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.view.animation.Animation;
 import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -43,13 +46,12 @@ public class HomeFragment extends BaseFragment {
     private RecyclerView recyclerView;
     int[] arr = new int[]{
             R.mipmap.home_dems_system,
-            R.mipmap.home_asset_my,
             R.mipmap.home_access_control,
             R.mipmap.home_fire_system,
             R.mipmap.home_power_system,
-            R.mipmap.home_environmental_system};
-
-
+            R.mipmap.home_environmental_system,
+            R.mipmap.home_asset_my
+    };
     @Override
     public View initView() {
         Log.i(TAG, "initView ");
@@ -157,25 +159,21 @@ public class HomeFragment extends BaseFragment {
                     intent.setClass(getContext(), DemsActivity.class);
                     break;
                 case 1:
-                    intent.setClass(getContext(), AssetsManagerActivity.class);
-                    break;
-                case 2:
                     intent.setClass(getContext(), AccessControlActivity.class);
                     break;
-                case 3:
+                case 2:
                     intent.setClass(getContext(), FireActivity.class);
                     break;
-                case 4:
+                case 3:
                     intent.setClass(getContext(), PowerSystemActivity.class);
                     break;
-                case 5:
+                case 4:
                     intent.setClass(getContext(), EnvironmentActivity.class);
                     break;
+                case 5:
+                    UiUtils.toast("后续开发中，敬请期待...");
+                    return;
             }
-//            UiUtils.toast("第" + tag + "条目");
-//            if (tag == 0 || tag == 1 || tag == 2 || tag == 4 || tag == 5){
-//            startAnimal(v,intent);
-//            }
             startActivity(intent);
         }
     };

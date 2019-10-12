@@ -117,7 +117,7 @@ public class MyTestPopupWindow extends PopupWindow {
 
         setContentView(contentView);
         setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
-//        设置popupWindow 的高度
+//        设置popupWindow 的高度，减去坐标的高度和自身的高度
         setHeight(UiUtils.getWindowWidthAndHeight()[1] - location[1] - locationView.getHeight());
 //        设置背景的透明度
         setBackgroundDrawable(new ColorDrawable(Color.parseColor("#7F000000")));

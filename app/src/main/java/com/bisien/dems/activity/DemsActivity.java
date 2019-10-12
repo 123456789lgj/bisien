@@ -40,6 +40,7 @@ public class DemsActivity extends BaseActivity {
     private DemsHomeBean.DataBean dataHomeDemsList;
     private ArrayList<CustomBean> dataList = new ArrayList<>();
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +50,7 @@ public class DemsActivity extends BaseActivity {
         initData();
 
     }
+
 
     private void initData() {
         MyHttpUtils myHttpUtils = new MyHttpUtils();

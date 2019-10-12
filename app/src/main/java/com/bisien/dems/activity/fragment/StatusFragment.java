@@ -49,6 +49,9 @@ public class StatusFragment extends BaseFragment {
         R.color.status_environment,
     };
     private ArrayList<CustomBean> dataList = new ArrayList<>();
+//    ViewPager的缩放比例，然后根据缩放比例进行添加view
+    private float[] scaleX = {0.84f,0.777f,0.715f,0.653f};
+    private float[] scaleY = {0.78f,0.722f,0.664f,0.606f};
     /**
      * 切换动画
      */
@@ -65,6 +68,7 @@ public class StatusFragment extends BaseFragment {
             System.out.println("cardViewList size :" + cardViewList.size());
             return;
         }
+
         MyHttpUtils myHttpUtils = new MyHttpUtils();
 //        此接口是获取所有的设备信息和设备的运行状态
         String url = GlobalConstants.getUrlFirst() + "rest/basicdata/get_homepagedata_forweb";
@@ -118,10 +122,11 @@ public class StatusFragment extends BaseFragment {
             customBean.setCategory(dataBean.getDc().getCategory()+"");
             dataList.add(customBean);
         }
+//        ac:空调，sts:烟感，ths:温湿度，fs:水浸，ab:警铃，dc:配电柜，env:环境设备
         if(dataBean.getThs() != null){
             CustomBean customBean = new CustomBean();
-            customBean.setEquipmentName("环境");//空调
-            customBean.setEquipmentCounts(dataBean.getThs().getCount()+"");//设备总数
+            customBean.setEquipmentName("环境");//环境包括，温湿度，水浸，烟感
+            customBean.setEquipmentCounts(dataBean.getThs().getCount()+dataBean.getSts().getCategory() + dataBean.getFs().getCount()+ "");//设备总数
             customBean.setRunEquipmentCounts(dataBean.getThs().getParam2()+"");//运行数量
             customBean.setEquipmentAlarm(dataBean.getThsAlarm()+"");//报警数量，如果为0，web端，就显示正常，否则就显示异常
             customBean.setCategory(dataBean.getThs().getCategory()+"");
@@ -129,6 +134,7 @@ public class StatusFragment extends BaseFragment {
         }
         DialogLoading.getInstance().dismissLoading();
         initSwitchNav();
+
     }
 
     public void initSwitchNav(){
@@ -160,7 +166,10 @@ public class StatusFragment extends BaseFragment {
         });
 //        如果当前的ViewPager 没有出现的话，调用setCurrentItem 也是没有用的
 //        cardViewPager.setCurrentItem(0);
-        initSource();
+//        initSource();
+        for (int i=0;i<cardViewList.size();i++){
+            addChildView(i);
+        }
     }
     @Override
     protected void initData() {
@@ -176,75 +185,78 @@ public class StatusFragment extends BaseFragment {
 
             cardViewList.get(i).cardViewDeviceName.setText(dataList.get(i).getEquipmentName());
             cardViewList.get(i).cardViewDeviceSum.setText(dataList.get(i).getEquipmentCounts());
-            cardViewList.get(i).view.setTag(i);
-            cardViewList.get(i).view.setOnClickListener(clickListener);
-
+            cardViewList.get(i).llComponent.setTag(i);
+            cardViewList.get(i).llComponent.setOnClickListener(clickListener);
         }
     }
+//  动态添加view 防止图片压缩，规则就是先压缩然后进行放大，那么给用户的体验就是图片没有被进行缩放
+    private void addChildView(int position) {
+        ImageView imageView = new ImageView(UiUtils.getContext());
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(UiUtils.dip2px(68), UiUtils.dip2px(68));
+        layoutParams.topMargin = UiUtils.dip2px(77);
+        imageView.setImageResource(arrImage[position]);
+        imageView.setLayoutParams(layoutParams);
+        imageView.setScaleX(1/scaleX[position]);
+        imageView.setScaleY(1/scaleY[position]);
+        cardViewList.get(position).llComponent.addView(imageView);
 
-//    private void addChildView(int position) {
-//        ImageView imageView = new ImageView(UiUtils.getContext());
-//        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        layoutParams.topMargin = UiUtils.dip2px(60);
-//        imageView.setImageResource(arrImage[position]);
-//        imageView.setLayoutParams(layoutParams);
-//
-//
-//
-//        TextView textView = new TextView(UiUtils.getContext());
-//        LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        tvParams.topMargin = UiUtils.dip2px(34);
-//        textView.setText(dataList.get(position).getEquipmentName());
-//        textView.setTextColor(UiUtils.getColor(arrColor[position]));
-//        textView.setTextSize(18);
-//        TextPaint paint = textView.getPaint();
-//        paint.setFakeBoldText(true);//设置
-//        textView.setLayoutParams(tvParams);
-//
-//        TextView textView2 = new TextView(UiUtils.getContext());
-//        LinearLayout.LayoutParams tvParams2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        tvParams2.topMargin = UiUtils.dip2px(34);
-//        textView2.setText("设备总数");
-//        textView2.setTextColor(UiUtils.getColor(arrColor[position]));
-//        textView2.setTextSize(18);
-//        TextPaint paint2 = textView.getPaint();
-//        paint2.setFakeBoldText(true);//设置
-//        textView2.setLayoutParams(tvParams2);
-//
-//        TextView textView3 = new TextView(UiUtils.getContext());
-//        LinearLayout.LayoutParams tvParams3= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-//        tvParams3.topMargin = UiUtils.dip2px(34);
-//        textView3.setText(dataList.get(position).getEquipmentCounts());
-//        textView3.setTextColor(UiUtils.getColor(arrColor[position]));
-//        textView3.setTextSize(60);
-//        textView3.setLayoutParams(tvParams3);
-//    }
+        TextView textView = new TextView(UiUtils.getContext());
+        LinearLayout.LayoutParams tvParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        tvParams.topMargin = UiUtils.dip2px(43);
+        textView.setText(dataList.get(position).getEquipmentName());
+        textView.setTextColor(UiUtils.getColor(arrColor[position]));
+        textView.setTextSize(23);
+        TextPaint paint = textView.getPaint();
+        paint.setFakeBoldText(true);//设置
+        textView.setLayoutParams(tvParams);
+        cardViewList.get(position).llComponent.addView(textView);
+
+        TextView textView2 = new TextView(UiUtils.getContext());
+        LinearLayout.LayoutParams tvParams2 = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        tvParams2.topMargin = UiUtils.dip2px(43);
+        textView2.setText("设备总数");
+        textView2.setTextColor(UiUtils.getColor(arrColor[position]));
+        textView2.setTextSize(23);
+        TextPaint paint2 = textView2.getPaint();
+        paint2.setFakeBoldText(true);//设置粗体显示
+        textView2.setLayoutParams(tvParams2);
+        cardViewList.get(position).llComponent.addView(textView2);
+
+        TextView textView3 = new TextView(UiUtils.getContext());
+        LinearLayout.LayoutParams tvParams3= new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+        tvParams3.topMargin = UiUtils.dip2px(43);
+        textView3.setText(dataList.get(position).getEquipmentCounts());
+        textView3.setTextColor(UiUtils.getColor(arrColor[position]));
+        textView3.setTextSize(76);
+        textView3.setLayoutParams(tvParams3);
+        cardViewList.get(position).llComponent.addView(textView3);
+
+
+        cardViewList.get(position).llComponent.setTag(position);
+        cardViewList.get(position).llComponent.setOnClickListener(clickListener);
+    }
 
     private View.OnClickListener clickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             int index = (int) v.getTag();
-//            UiUtils.toast(dataList.get(tag).getCategory());
             Intent intent = new Intent();
             switch (index) {
                 case 0:
                     intent.setClass(UiUtils.getContext(), CondiditioningActivity.class);
-                    intent.putExtra("category",dataList.get(index).getCategory());
                     break;
                 case 1:
                     intent.setClass(UiUtils.getContext(), UpsActivity.class);
-                    intent.putExtra("category",dataList.get(index).getCategory());
                     break;
                 case 2:
                     intent.setClass(UiUtils.getContext(), PowerDisttibuteActivity.class);
-                    intent.putExtra("category",dataList.get(index).getCategory());
                     break;
                 case 3:
                     intent.setClass(UiUtils.getContext(), StatusEnvActivity.class);
-                    intent.putExtra("category",dataList.get(index).getCategory());
                     break;
             }
-                startActivity(intent);
+            intent.putExtra("category",dataList.get(index).getCategory());
+            startActivity(intent);
         }
     };
 

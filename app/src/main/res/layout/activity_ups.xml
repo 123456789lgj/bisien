@@ -95,7 +95,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/tvCommStatus"
                     android:text="正常"
-                    android:textColor="@color/status_ups"
+                    android:textColor="@color/air_normal"
                     android:textSize="14dp" />
             </RelativeLayout>
             <ImageView

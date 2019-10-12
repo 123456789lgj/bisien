@@ -18,6 +18,7 @@ import okhttp3.RequestBody;
 
 public class MyHttpUtils {
     public void getDataFromServiceByGet(String url,final OnNetResponseListener listener){
+        System.out.println("url :" + url);
         OkHttpUtils.get().url(url).build().execute(new StringCallback() {
             @Override
             public void onError(Call call, Exception e, int id) {

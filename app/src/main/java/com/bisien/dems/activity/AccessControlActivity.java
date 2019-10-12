@@ -16,7 +16,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bisien.dems.R;
+import com.bisien.dems.activity.application.MyApplication;
 import com.bisien.dems.activity.bean.EquipmentBean;
+import com.bisien.dems.activity.bean.GlobalDataBean;
 import com.bisien.dems.activity.global.GlobalConstants;
 import com.bisien.dems.activity.utils.MyHttpUtils;
 import com.bisien.dems.activity.utils.ToastUtils;
@@ -42,9 +44,12 @@ public class AccessControlActivity extends BaseActivity {
     }
 
     private void initData() {
+//        List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = MyApplication.equipments.get(Integer.parseInt(8));
+
         showLoading("加载中...");
         MyHttpUtils myHttpUtils = new MyHttpUtils();
         String url = GlobalConstants.getUrlFirst() + "rest/equipment/get_list";
+
 //        String url = "http://localhost:8080/gledeye/rest/basicdata/get_cabinetsiganl";
         myHttpUtils.getDataFromServiceByGet(url, new MyHttpUtils.OnNetResponseListener() {
 
@@ -158,6 +163,7 @@ public class AccessControlActivity extends BaseActivity {
                 holderSwitch.ivSwitch.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
+//                        这里来通过手机控制门禁
                         UiUtils.toast("通过手机来操作门禁");
 
                     }

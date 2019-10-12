@@ -123,6 +123,12 @@ public class CondiditioningActivity extends BaseActivity implements View.OnClick
 //        super.refreshSelectData(bean);
         tvAirName.setText(bean.name);
         tvAirHouseName.setText(bean.houseName);
+//        防止万一没有code值，然后把所有的变成灰色
+        setDrawable(airCompress, R.mipmap.air_compress);
+        setDrawable(airFan, R.mipmap.air_fan);
+        setDrawable(airPlusWet, R.mipmap.air_plus_wet);
+        setDrawable(airDivideWet, R.mipmap.air_divide_wet);
+        setDrawable(airCold, R.mipmap.air_cold);
         initGetDataFromService(bean.deviceId + "",category);
     }
 
@@ -163,6 +169,7 @@ public class CondiditioningActivity extends BaseActivity implements View.OnClick
 //        此接口是获取所用的设备信息和设备的运行状态
         String url = GlobalConstants.getUrlFirst() + "rest/status/get_list_rdata_byequipid/" + deviceId + "/" + deviceType;
 //        String url = "http://192.168.1.145:8080/gledeye/rest/equipment/get_list";
+        System.out.println("url :" + url);
         showLoading("加载中...");
 
         myHttpUtils.getDataFromServiceByGet(url, new MyHttpUtils.OnNetResponseListener() {
@@ -240,6 +247,7 @@ public class CondiditioningActivity extends BaseActivity implements View.OnClick
     }
 
     public void initSelectStatus() {
+
         for (int i = 0; i < listOne.size(); i++) {
             CondiditioningBean.DataBean dataBean = listOne.get(i);
             double currentValue = dataBean.getCurrentValue();

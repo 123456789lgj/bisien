@@ -3,6 +3,9 @@ package com.bisien.dems.activity.utils;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.view.Gravity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.TextView;
 
 import com.bisien.dems.R;
@@ -41,6 +44,9 @@ public class DialogLoading {
         //点击空白处不消失
         dialog.setCancelable(true);
         dialog.setCanceledOnTouchOutside(false);
+//        Window window = dialog.getWindow();
+//        window.setGravity(Gravity.CENTER);
+
         //此方法是点击外围和点击返回键都不会消失
 //        dialog.setCancelable(false);
         //此方法是点击外围不会消失，但是点击返回键一样消失

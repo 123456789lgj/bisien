@@ -17,7 +17,6 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 <!--android:background="@color/min_blue"-->
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

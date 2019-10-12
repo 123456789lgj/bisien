@@ -10,9 +10,12 @@ import android.view.WindowManager;
 import android.widget.Toast;
 
 import com.bisien.dems.activity.application.MyApplication;
+import com.bisien.dems.activity.bean.HouseInfoBean;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class UiUtils {
     public static String TAG = UiUtils.class + " lgj";
@@ -149,6 +152,17 @@ public class UiUtils {
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String format = df.format(date);
         return format;
+    }
+    public static String getHouseName(long houseId){
+        HashMap<Long, ArrayList<HouseInfoBean>> houseMap = MyApplication.houseMap;
+        for (ArrayList<HouseInfoBean> houseInfoBean : houseMap.values()) {
+            for (int j = 0; j < houseInfoBean.size() ; j++) {
+                if (houseId== houseInfoBean.get(j).getHousesId()){
+                    return houseInfoBean.get(j).getHouseName();
+                }
+            }
+        }
+        return "";
     }
 
 }

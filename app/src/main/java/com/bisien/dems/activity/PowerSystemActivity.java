@@ -14,11 +14,16 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bisien.dems.R;
+import com.bisien.dems.activity.application.MyApplication;
+import com.bisien.dems.activity.bean.CondiditioningBean;
 import com.bisien.dems.activity.bean.EquipmentBean;
+import com.bisien.dems.activity.bean.GlobalDataBean;
 import com.bisien.dems.activity.global.GlobalConstants;
 import com.bisien.dems.activity.utils.MyHttpUtils;
 import com.bisien.dems.activity.utils.UiUtils;
 import com.google.gson.Gson;
+
+import java.util.ArrayList;
 import java.util.List;
 
 public class PowerSystemActivity extends BaseActivity {
@@ -31,14 +36,24 @@ public class PowerSystemActivity extends BaseActivity {
         setContentView(R.layout.activity_power_system);
         findTitle("电力系统");
         recyclerView = findViewById(R.id.recyclerView);
-        initData();
+        List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = MyApplication.equipments.get(3);
+        if (equipmentsBeans != null){
+            for (int i = 0; i < equipmentsBeans.size(); i++) {
+                GlobalDataBean.DataBean.HousesBean.EquipmentsBean equipmentsBean = equipmentsBeans.get(i);
+                if (!equipmentsBean.getName().toUpperCase().contains("PDU")) {
+                    initData(equipmentsBean.getId());
+                    break;
+                }
+            }
+        }
 
     }
-    private EquipmentBean.DataBean dataBeanList;
-    private void initData() {
+
+    ArrayList<CondiditioningBean.DataBean> listTwo = new ArrayList<>();
+    private void initData(long deviceId) {
         MyHttpUtils myHttpUtils = new MyHttpUtils();
 //        此接口是获取所用的设备信息和设备的运行状态
-        String url =  GlobalConstants.getUrlFirst() + "rest/equipment/get_list";
+        String url = GlobalConstants.getUrlFirst() + "rest/status/get_list_rdata_byequipid/" + deviceId + "/" + 3;
 //        String url = "http://192.168.1.145:8080/gledeye/rest/equipment/get_list";
         showLoading("加载中...");
         myHttpUtils.getDataFromServiceByGet(url, new MyHttpUtils.OnNetResponseListener() {
@@ -46,17 +61,17 @@ public class PowerSystemActivity extends BaseActivity {
             public void onOk(String response) {
 
                 dismissLoading();
+                CondiditioningBean condiditioningBean = new Gson().fromJson(response, CondiditioningBean.class);
+                List<CondiditioningBean.DataBean> data = condiditioningBean.getData();
 
-                Gson gson = new Gson();
-                EquipmentBean equipmentBean = gson.fromJson(response, EquipmentBean.class);
-                List<EquipmentBean.DataBean> data = equipmentBean.getData();
                 for (int i = 0; i < data.size(); i++) {
-                    EquipmentBean.DataBean dataBean = data.get(i);
-                    String name = dataBean.getName();
-                    if (name.equalsIgnoreCase("UPS")){
-                        dataBeanList = dataBean;
-//                        找到UPS 对应的数据，跳出循环
-                        break;
+                    CondiditioningBean.DataBean dataBean = data.get(i);
+                    if (dataBean.isVisible()) {//需要展示的信息
+                        int channelType = dataBean.getChannelType();
+                        if (channelType == 1) {// channelType 等于0 的话，表示数字量
+                        } else {// channelType=2 的话，表示模拟量
+                            listTwo.add(dataBean);
+                        }
                     }
                 }
                 setData();
@@ -79,18 +94,18 @@ public class PowerSystemActivity extends BaseActivity {
         recyclerView.setAdapter(powerSystemAdapter);
     }
 
-    class PowerSystemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    class PowerSystemAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         private int TYPE_HEADER = 1001;
+
         @NonNull
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 //            添加头布局
-            if(viewType == TYPE_HEADER){
+            if (viewType == TYPE_HEADER) {
                 ImageView imageView = new ImageView(UiUtils.getContext());
                 imageView.setImageResource(R.mipmap.ic_power);
                 ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, UiUtils.dip2px(LinearLayout.LayoutParams.WRAP_CONTENT));
                 imageView.setLayoutParams(layoutParams);
-
                 return new HeadViewHolder(imageView);
             }
             View view = View.inflate(parent.getContext(), R.layout.adapter_recycler_power_system, null);
@@ -100,7 +115,7 @@ public class PowerSystemActivity extends BaseActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position == 0){
+            if (position == 0) {
                 return TYPE_HEADER;
             }
             return super.getItemViewType(position);
@@ -108,16 +123,17 @@ public class PowerSystemActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder2, int position) {
-            if (holder2 instanceof PowerSystemViewHolder){
+            if (holder2 instanceof PowerSystemViewHolder) {
 //                减一是为了防止数组索引越界
-                EquipmentBean.DataBean.EquipmentSignalsBean equipmentSignalsBean = dataBeanList.getEquipmentSignals().get(position -1);
+//                EquipmentBean.DataBean.EquipmentSignalsBean equipmentSignalsBean = listTwo.getEquipmentSignals().get(position - 1);
+                CondiditioningBean.DataBean dataBean = listTwo.get(position - 1);
                 PowerSystemViewHolder holder = (PowerSystemViewHolder) holder2;
-                holder.tvDeviceName.setText(equipmentSignalsBean.getName());
-                holder.tvCurrentValue.setText(equipmentSignalsBean.getCurrentValue() + equipmentSignalsBean.getUnit());
+                holder.tvDeviceName.setText(dataBean.getName());
+                holder.tvCurrentValue.setText(dataBean.getCurrentValue() + dataBean.getUnit());
 //            表示最后一个元素
-                if (position == dataBeanList.getEquipmentSignals().size()){
+                if (position == listTwo.size()) {
                     holder.bottomDevide.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     holder.bottomDevide.setVisibility(View.GONE);
                 }
             }
@@ -125,14 +141,16 @@ public class PowerSystemActivity extends BaseActivity {
 
         @Override
         public int getItemCount() {
-            return dataBeanList != null ? dataBeanList.getEquipmentSignals().size() + 1 : 0;
+            return  listTwo.size() + 1;
         }
     }
-    static class PowerSystemViewHolder extends RecyclerView.ViewHolder{
+
+    static class PowerSystemViewHolder extends RecyclerView.ViewHolder {
         private TextView tvDeviceName;
         private TextView tvCurrentValue;
         private View bottomDevide;
         private View viewDevide;
+
         public PowerSystemViewHolder(@NonNull View itemView) {
             super(itemView);
             tvDeviceName = itemView.findViewById(R.id.tvDeviceName);
@@ -141,14 +159,17 @@ public class PowerSystemActivity extends BaseActivity {
             viewDevide = itemView.findViewById(R.id.viewDevide);
         }
     }
-    static class HeadViewHolder extends RecyclerView.ViewHolder{
+
+    static class HeadViewHolder extends RecyclerView.ViewHolder {
         private View headView;
+
         public HeadViewHolder(@NonNull View itemView) {
             super(itemView);
             headView = itemView;
         }
     }
-    class SpacesItemDecoration extends RecyclerView.ItemDecoration{
+
+    class SpacesItemDecoration extends RecyclerView.ItemDecoration {
         private int space;//元素与元素之间的间隔
 
         public SpacesItemDecoration(int space) {

@@ -95,7 +95,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/tvTempertrueCommStatus"
                     android:text="正常"
-                    android:textColor="@color/status_environment"
+                    android:textColor="@color/air_normal"
                     android:textSize="14dp" />
             </RelativeLayout>
 
@@ -180,7 +180,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/tvFloodingCommStatus"
                     android:text="正常"
-                    android:textColor="@color/status_environment"
+                    android:textColor="@color/air_normal"
                     android:textSize="14dp" />
             </RelativeLayout>
 
@@ -264,7 +264,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/tvSmookingCommStatus"
                     android:text="正常"
-                    android:textColor="@color/status_environment"
+                    android:textColor="@color/air_normal"
                     android:textSize="14dp" />
             </RelativeLayout>
 
@@ -273,6 +273,7 @@
                 android:id="@+id/smookingRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
                 android:background="@drawable/shap_dialog_bg"

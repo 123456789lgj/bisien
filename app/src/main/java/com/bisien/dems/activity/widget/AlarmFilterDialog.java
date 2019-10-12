@@ -30,6 +30,8 @@ import com.bisien.dems.R;
 import com.bisien.dems.activity.application.MyApplication;
 import com.bisien.dems.activity.bean.GlobalDataBean;
 import com.bisien.dems.activity.fragment.AlarmFragment;
+import com.bisien.dems.activity.global.GlobalDataInit;
+import com.bisien.dems.activity.utils.DialogLoading;
 import com.bisien.dems.activity.utils.UiUtils;
 
 import org.w3c.dom.Text;
@@ -81,7 +83,8 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
 
 
     }
-//2019-09-23+09:54:21
+
+    //2019-09-23+09:54:21
     //{"stationId":-1,"houseId":-1,"equipmentId":-1,"alarmGrade":1,"startTime":"2010-01-01+00:00:00","endTime":"2019-09-11+14:02:33","equipmenttype":"-1"}
     private int currentType = -1;
 
@@ -160,11 +163,35 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
         tvEndTime = findViewById(R.id.tvEndTime);
         tvStartTime.setOnClickListener(this);
         tvEndTime.setOnClickListener(this);
-
+        if (MyApplication.equipments.size() == 0 || MyApplication.equipmentTypeName.size() == 0) {
+//            UiUtils.getMainThreadHandler().postDelayed(new Runnable() {
+//                @Override
+//                public void run() {
+//                    DialogLoading.getInstance().showLoading(activity, "加载中...");
+//                    GlobalDataInit globalDataInit = new GlobalDataInit();
+//                    globalDataInit.setListener(new GlobalDataInit.DataListener() {
+//                        @Override
+//                        public void complete() {
+//                            UiUtils.getMainThreadHandler().post(new Runnable() {
+//                                @Override
+//                                public void run() {
+//                                    DialogLoading.getInstance().dismissLoading();
+//                                    showInitView();
+//                                }
+//                            });
+//                        }
+//                    });
+//                    GlobalDataInit.initGloalData();
+//                }
+//            },200);
+        }else {
+            showInitView();
+        }
+    }
+    public void showInitView(){
         //        -----------------------------------------------------------------------------------------------------
         HashMap<Integer, String> equipmentTypeName = MyApplication.equipmentTypeName;
-        System.out.println("equipmentTypeName :" + equipmentTypeName.size());
-
+        System.out.println("equipmentTypeName 111111111:" + equipmentTypeName.size());
         for (Integer key : equipmentTypeName.keySet()) {
             TextView textView = new TextView(UiUtils.getContext());
             textView.setTag(key);
@@ -179,8 +206,8 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
 
             myFlowLayoutCategory.addView(textView);
         }
-
-//        ---------------------------------------------device--------------------------------------------------------
+        //        ---------------------------------------------device--------------------------------------------------------
+//        设备类型对应的具体哪些设备
         HashMap<Integer, List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean>> equipments = MyApplication.equipments;
         for (Integer key : equipments.keySet()) {
             List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = equipments.get(key);
@@ -202,26 +229,25 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
                 myFlowLayoutDevice.addView(textView);
             }
         }
-        System.out.println("1111111111111111112222222222222222");
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.arrowDownStation:
-                if (stationPopupWindow != null && stationPopupWindow.isShowing()){
+                if (stationPopupWindow != null && stationPopupWindow.isShowing()) {
                     stationPopupWindow.dismiss();
                     return;
                 }
-                ObjectAnimator.ofFloat(arrowDownStation,"rotation",0f, 180f).setDuration(100).start();
+                ObjectAnimator.ofFloat(arrowDownStation, "rotation", 0f, 180f).setDuration(100).start();
                 showPopupWindowStation();
                 break;
             case R.id.arrowDownHouse:
-                if (housePopupWindow != null && housePopupWindow.isShowing()){
+                if (housePopupWindow != null && housePopupWindow.isShowing()) {
                     housePopupWindow.dismiss();
                     return;
                 }
-                ObjectAnimator.ofFloat(arrowDownHouse,"rotation",0f, 180f).setDuration(100).start();
+                ObjectAnimator.ofFloat(arrowDownHouse, "rotation", 0f, 180f).setDuration(100).start();
                 showPopupWindowHouse();
                 break;
             case R.id.btComplete:
@@ -246,16 +272,16 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
         TimePickerView pvTime = new TimePickerBuilder(activity, new OnTimeSelectListener() {
             @Override
             public void onTimeSelect(Date date, View v) {
-                if (date != null){
+                if (date != null) {
                     String time = UiUtils.getTime(date);
                     String[] s = time.split(" ");
                     String formatTime = s[0] + "+" + s[1];
-                    if (startTime){
+                    if (startTime) {
                         tvStartTime.setText(time);
-                        MyApplication.filterContitions.put("startTime",formatTime);
-                    }else {
+                        MyApplication.filterContitions.put("startTime", formatTime);
+                    } else {
                         tvEndTime.setText(time);
-                        MyApplication.filterContitions.put("endTime",formatTime);
+                        MyApplication.filterContitions.put("endTime", formatTime);
                     }
                     System.out.println("formatTime :" + formatTime);
 
@@ -274,8 +300,8 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
     public void clearAllSelectStatus() {
         HashMap<String, String> filterContitions = MyApplication.filterContitions;
         for (String key : filterContitions.keySet()) {
-            if (!"alarmGrade".equals(key)){
-                filterContitions.put(key,"-1");//重置所有的筛选条件
+            if (!"alarmGrade".equals(key)) {
+                filterContitions.put(key, "-1");//重置所有的筛选条件
             }
             System.out.println("key :" + key + "value :" + filterContitions.get(key));
         }
@@ -302,7 +328,7 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    private void clearCategroy(){//清空所有的类别选择
+    private void clearCategroy() {//清空所有的类别选择
         int childCount = myFlowLayoutCategory.getChildCount();
         for (int i = 0; i < childCount; i++) {
             TextView childAt = (TextView) myFlowLayoutCategory.getChildAt(i);
@@ -310,29 +336,30 @@ public class AlarmFilterDialog extends Dialog implements View.OnClickListener {
             childAt.setTextColor(UiUtils.getColor(R.color.filter_condations));
         }
     }
-//true表示站信息
+
+    //true表示站信息
     private void showPopupWindowStation() {
         stationPopupWindow = new FilterPopupWindow(measurePopupWidth, activity, tvStation, tvHouse, true);
         PopupWindowCompat.showAsDropDown(stationPopupWindow, measurePopupWidth, 0, 0, Gravity.START);
         stationPopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                ObjectAnimator.ofFloat(arrowDownStation,"rotation",180f, 0).setDuration(100).start();
+                ObjectAnimator.ofFloat(arrowDownStation, "rotation", 180f, 0).setDuration(100).start();
             }
         });
 
     }
-//false表示房间信息
+
+    //false表示房间信息
     private void showPopupWindowHouse() {
         housePopupWindow = new FilterPopupWindow(measurePopupWidth, activity, tvStation, tvHouse, false);
         PopupWindowCompat.showAsDropDown(housePopupWindow, tvHouseLocation, 0, 0, Gravity.START);
         housePopupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                ObjectAnimator.ofFloat(arrowDownHouse,"rotation",180f, 0).setDuration(100).start();
+                ObjectAnimator.ofFloat(arrowDownHouse, "rotation", 180f, 0).setDuration(100).start();
             }
         });
-
     }
 
 }

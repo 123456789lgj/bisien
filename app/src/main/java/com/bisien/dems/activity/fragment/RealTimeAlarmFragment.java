@@ -264,6 +264,9 @@ public class RealTimeAlarmFragment extends BaseFragment {
 
             @Override
             public void onNotOk(String msg) {
+                if (filterDataObtion != null) {
+                    filterDataObtion.complete();
+                }
                 System.out.println("AlarmFragment onNotOk :" + msg);
                 if (loadMore) {
                     smartRefreshLayout.finishLoadMore();

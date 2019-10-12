@@ -19,6 +19,13 @@ import java.util.List;
 public class GlobalDataInit {
     public static String TAG = GlobalDataInit.class + " lgj";
 
+    public void setListener(DataListener dataListener){
+        this.dataListener = dataListener;
+    }
+    public static DataListener dataListener;
+    public interface DataListener{
+        void complete();
+    }
     public static void initGloalData() {
         new Thread(){
             @Override
@@ -35,6 +42,7 @@ public class GlobalDataInit {
                         Log.i(TAG, "onOk :" + "response :" + response);
                         GlobalDataBean globalDataBean = new Gson().fromJson(response, GlobalDataBean.class);
                         List<GlobalDataBean.DataBean> data = globalDataBean.getData();
+
                         if (data != null) {
                             for (int i = 0; i < data.size(); i++) {
                                 long stationId = data.get(i).getId();
@@ -74,9 +82,12 @@ public class GlobalDataInit {
                                     }
                                 }
                             }
-                            System.out.println("stationMap 2:" + MyApplication.stationMap.size());
+                            System.out.println("stationMap :" + MyApplication.stationMap.size());
                             System.out.println("houseMap :" + MyApplication.houseMap.size());
                             System.out.println("equipments :" + MyApplication.equipments.size());
+                            if(dataListener != null){
+                                dataListener.complete();
+                            }
                         }
                     }
 
@@ -112,6 +123,5 @@ public class GlobalDataInit {
                 });
             }
         }.start();
-
     }
 }

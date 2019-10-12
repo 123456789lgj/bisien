@@ -6,38 +6,48 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".activity.VersionInfoActivity">
+    <include android:layout_width="match_parent" android:layout_height="48dp" layout="@layout/head_title"/>
 
+    <ImageView
+        android:layout_width="96dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/logo_version"
+        android:layout_marginTop="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_height="96dp" />
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@color/text_press"
-        android:gravity="center"
-        android:text="版本信息"
-        android:textColor="@color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="MIM"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
         android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="2017-08-03"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:text="Version 1.0.0"
+        android:layout_marginTop="8dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="V1.0.0版本"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
-
+        android:layout_marginTop="70dp"
+        android:layout_marginLeft="40dp"
+        android:text="功能介绍：提供基本动环监控功能"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="提供基本动环监控功能"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        android:text="更新时间：2019/10/08"
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="40dp"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
 
 </LinearLayout>

@@ -54,6 +54,6 @@ public class BaseActivity extends AppCompatActivity {
         DialogLoading.getInstance().dismissLoading();
     }
     public void refreshSelectData(CondiditioningActivity.Bean bean){}
-
+    public void refreshSelectData(int categroy,int currentPosition,String houseName){}
 
 }

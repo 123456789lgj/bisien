@@ -12,15 +12,14 @@ import android.view.animation.ScaleAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bisien.dems.R;
 import com.bisien.dems.activity.application.MyApplication;
-import com.bisien.dems.activity.bean.LocationBean;
 import com.bisien.dems.activity.global.GlobalConstants;
 import com.bisien.dems.activity.global.GlobalDataInit;
-import com.bisien.dems.activity.utils.MyHttpUtils;
 import com.bisien.dems.activity.utils.PrefUtils;
 import com.bisien.dems.activity.utils.UiUtils;
-import com.google.gson.Gson;
 
 public class SplashActivity extends Activity {
 
@@ -37,7 +36,7 @@ public class SplashActivity extends Activity {
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN ,
 //                WindowManager.LayoutParams. FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-        imageView = (ImageView) findViewById(R.id.image_view);
+        imageView =  findViewById(R.id.image_view);
         tv = findViewById(R.id.tv);
         AlphaAnimation alphaAnimation = new AlphaAnimation(0.0f, 1f);
         alphaAnimation.setFillAfter(true);
@@ -113,7 +112,6 @@ public class SplashActivity extends Activity {
 //            }
 //        });
         String ip = PrefUtils.getString(UiUtils.getContext(), "setIp", "");
-
 //        没事设置IP的时候，不能够获取locationInfo的信息
         if (ip == null || "".equals(ip)) {
 
@@ -150,7 +148,15 @@ public class SplashActivity extends Activity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //初始化Toast的高度
+        int height = UiUtils.getWindowWidthAndHeight()[1];
+        Log.i(TAG,"height : " +height);
+        MyApplication.toastHeight = height/4;
 
+    }
 
     @Override
     public void startActivity(Intent intent) {

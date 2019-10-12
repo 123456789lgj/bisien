@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gb_gray"
     android:orientation="vertical">
 
     <TextView
@@ -16,6 +17,7 @@
         android:textColor="@color/white"
         android:textSize="18sp"
         android:textStyle="bold" />
+
     <androidx.viewpager.widget.ViewPager
         android:layout_width="match_parent"
         android:id="@+id/cardViewPager"

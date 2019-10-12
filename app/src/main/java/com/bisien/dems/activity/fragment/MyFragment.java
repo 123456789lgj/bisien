@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -19,24 +20,24 @@ import com.bisien.dems.activity.utils.UiUtils;
 public class MyFragment extends BaseFragment implements View.OnClickListener {
     public static String TAG = MyFragment.class + " lgj";
     private TextView tvPersonalCenter;
-    private TextView tvChangePassword;
-    private TextView tvService;
-    private TextView tvVersionInformation;
-    private TextView tvDropOut;
+    private RelativeLayout rlChangePassword;
+    private RelativeLayout rlMyService;
+    private RelativeLayout rlMyVersion;
+    private RelativeLayout rlMyOut;
 
     @Override
     public View initView() {
         View view = View.inflate(getContext(), R.layout.fragment_my, null);
         tvPersonalCenter = view.findViewById(R.id.personalCenter);
-        tvChangePassword = view.findViewById(R.id.changePassword);
-        tvService = view.findViewById(R.id.service);
-        tvVersionInformation = view.findViewById(R.id.versionInformation);
-        tvDropOut = view.findViewById(R.id.dropOut);
+        rlChangePassword = view.findViewById(R.id.rlChangePassword);
+        rlMyService = view.findViewById(R.id.rlMyService);
+        rlMyVersion = view.findViewById(R.id.rlMyVersion);
+        rlMyOut = view.findViewById(R.id.rlMyOut);
         tvPersonalCenter.setOnClickListener(this);
-        tvChangePassword.setOnClickListener(this);
-        tvService.setOnClickListener(this);
-        tvVersionInformation.setOnClickListener(this);
-        tvDropOut.setOnClickListener(this);
+        rlChangePassword.setOnClickListener(this);
+        rlMyService.setOnClickListener(this);
+        rlMyVersion.setOnClickListener(this);
+        rlMyOut.setOnClickListener(this);
         return view;
     }
 
@@ -51,16 +52,16 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
         switch (v.getId()){
             case R.id.personalCenter:
                 break;
-            case R.id.changePassword:
+            case R.id.rlChangePassword:
                 startActivity(new Intent(getContext(), ChangePasswordActivity.class));
                 break;
-            case R.id.service:
+            case R.id.rlMyService:
                 startActivity(new Intent(getContext(), AppServiceActivity.class));
                 break;
-            case R.id.versionInformation:
+            case R.id.rlMyVersion:
                 startActivity(new Intent(getContext(), VersionInfoActivity.class));
                 break;
-            case R.id.dropOut:
+            case R.id.rlMyOut:
                 //退出登录
                 showDropOutDialog();
 
@@ -79,6 +80,7 @@ public class MyFragment extends BaseFragment implements View.OnClickListener {
                 PrefUtils.putString(UiUtils.getContext(),"isLogin","");
                 UiUtils.toast("退出成功");
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
             }
         });
         builder.setNegativeButton("取消",new DialogInterface.OnClickListener() {

@@ -5,56 +5,159 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DemsActivity">
+    tools:context=".activity.FireActivity">
 
     <include android:layout_width="match_parent" android:layout_height="48dp" layout="@layout/head_title"/>
-
-    <!-- app:tabMode="fixed" 固定，不滑动
-    app:tabIndicatorFullWidth：指示器的长度是否铺满整个tab
-    app:tabUnboundedRipple：是否启用水波纹样式
-    app:tabRippleColor：水波纹样式的颜色
-    app:tabIndicator：指示器的样式
-    app:tabIndicatorGravity：指示器的位置
-    app:tabMode：指示器的模式（fixed，scrollable，auto）
-    -->
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp">
-        <!--tabIndicatorColor 底下标签的颜色值-->
-        <!--tabSelectedTextColor 选中时的文字的颜色-->
-        <!--tabBackground 整个item的背景-->
-        <!--tabTextColor 默认item文字的颜色-->
-        <!--tabTextAppearance 指定 文字的大小-->
-        <com.google.android.material.tabs.TabLayout
-            android:layout_width="match_parent"
-            android:id="@+id/tabLayout"
-            app:tabIndicatorColor="@color/text_press"
-            app:tabSelectedTextColor="@color/text_press"
-            app:tabBackground="@color/mid_blue"
-            app:tabTextColor="@color/white"
-            app:tabTextAppearance="@style/TabLayoutTextStyle"
-            app:tabMode="scrollable"
-            android:visibility="gone"
-            android:layout_height="40dp">
-        </com.google.android.material.tabs.TabLayout>
+        android:layout_height="156dp"
+        android:background="@drawable/shap_dialog_bg"
+        android:layout_margin="8dp"
+        android:translationZ="6dp">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="38dp"
+            android:src="@mipmap/ic_access_logo" />
         <TextView
-            android:layout_width="match_parent"
-            android:id="@+id/oneItem"
-            android:visibility="gone"
-            android:background="@color/mid_blue"
-            android:textSize="14dp"
-            android:textColor="@color/text_press"
-            android:gravity="center"
-            android:layout_height="48dp" />
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="29dp"
+            android:text="烟感"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_marginBottom="29dp"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCurrentStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="状态"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvCurrentStatusValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="关闭"
+                android:textColor="@color/count_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
     </RelativeLayout>
-
-
-    <androidx.viewpager.widget.ViewPager
+    <RelativeLayout
+        android:layout_margin="8dp"
+        android:translationZ="6dp"
         android:layout_width="match_parent"
-        android:id="@+id/viewPager"
-        android:layout_height="match_parent">
+        android:layout_height="156dp"
+        android:background="@drawable/shap_dialog_bg">
 
-    </androidx.viewpager.widget.ViewPager>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="38dp"
+            android:layout_marginBottom="38dp"
+            android:src="@mipmap/ic_access_logo" />
+
+        <TextView
+            android:id="@+id/tvNameAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="29dp"
+            android:text="警铃"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <LinearLayout
+            android:id="@+id/llAlarm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvNameAlarm"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvCurrentStatusAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="状态"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tvCurrentStatusValueAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="关闭"
+                android:textColor="@color/count_green"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llAlarm"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="关闭"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+
+            <Switch
+                android:id="@+id/s_wAlarm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:showText="true"
+                android:switchMinWidth="40dp"
+                android:textOff="off"
+                android:textOn="on"
+                android:thumb="@drawable/thumb"
+                android:track="@drawable/track" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dp"
+                android:text="开启"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
+        </LinearLayout>
+    </RelativeLayout>
 
 
 </LinearLayout>

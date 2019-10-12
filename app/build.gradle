@@ -18,11 +18,17 @@ android {
             keyPassword '1234567'
         }
     }
+//    minifyEnabled true  设置成true 表示开启混淆
+//    加上shrinkResources true，打开资源压缩。
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             signingConfig signingConfigs.config
+        }
+        debug {
+//            minifyEnabled false
+//            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 

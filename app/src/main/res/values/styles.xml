@@ -8,12 +8,27 @@
         <item name="colorAccent">#2699fb</item>
 
     </style>
-    <!--Activity全屏的样式-->
-    <style name="lgjTheme" parent="@android:style/Theme.NoTitleBar.Fullscreen">
-        <!-- Customize your theme here. -->
-        <item name="android:windowBackground">@null</item>
-        <item name="android:background">@color/white</item>
-        <item name="android:windowIsTranslucent">true</item>
+    <!--Activity全屏的样式
+    @android:style/Theme.NoTitleBar.Fullscreen
+    ThisTime: 476
+    TotalTime: 476
+    WaitTime: 586
+    name="lgjTheme" parent="AppTheme"
+    ThisTime: 416
+    TotalTime: 416
+    WaitTime: 435
+    启动时间明显缩短
+    -->
+    <style name="lgjTheme" parent="AppTheme">
+        <!-- Customize your theme here.
+           <item name="android:windowBackground">@color/white</item>
+           去掉这个，背景显示白色,
+           如果点击icon 图标，感觉明显的有点卡顿，那么有可能是设置windowIsTranslucent="true"
+                 <item name="android:windowIsTranslucent">false</item>
+         -->
+
+        <item name="android:windowBackground">@color/white</item>
+        <item name="android:windowFullscreen">true</item>
     </style>
 
 

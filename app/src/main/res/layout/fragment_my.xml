@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gb_gray"
     android:orientation="vertical">
 
     <TextView
@@ -17,46 +18,136 @@
         android:textSize="18sp"
         android:textStyle="bold" />
 
-    <TextView
-        android:id="@+id/changePassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="修改密码"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/rlChangePassword"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/ivMyChangePassword"
+            android:src="@mipmap/ic_my_change_password" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="修改密码"
+            android:layout_toRightOf="@+id/ivMyChangePassword"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/service"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="服务"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_my_forward_arrow" />
 
-    <TextView
-        android:id="@+id/versionInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="版本信息"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:id="@+id/rlMyService"
+        android:layout_marginTop="8dp"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/ivMyService"
+            android:src="@mipmap/ic_my_service" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="服务"
+            android:layout_toRightOf="@+id/ivMyService"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
 
-    <TextView
-        android:id="@+id/dropOut"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="退出"
-        android:textColor="@color/fragment_my_textcolor"
-        android:textSize="18sp" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_my_forward_arrow" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:src="@mipmap/ic_status_conditioning"
-        android:layout_margin="20dp"
-        android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="8dp"
+        android:id="@+id/rlMyVersion"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/ivMyVersion"
+            android:src="@mipmap/ic_my_version" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="版本信息"
+            android:layout_toRightOf="@+id/ivMyVersion"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_my_forward_arrow" />
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:id="@+id/rlMyOut"
+        android:background="@color/white">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:id="@+id/ivMyOut"
+            android:src="@mipmap/ic_my_out" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:text="退出"
+            android:layout_toRightOf="@+id/ivMyOut"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/ic_my_forward_arrow" />
+
+    </RelativeLayout>
 
 </LinearLayout>

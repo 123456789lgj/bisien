@@ -2,9 +2,14 @@ package com.bisien.dems.activity.animal;
 
 import android.os.Build;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.viewpager.widget.ViewPager;
+
+import com.bisien.dems.R;
+import com.bisien.dems.activity.utils.UiUtils;
 
 /**
  * Created by Bamboy on 2019/3/6.
@@ -142,12 +147,18 @@ public class CardTransformer implements ViewPager.PageTransformer {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             view.setTranslationZ(scale * 20);
         }
-        // 设置横向缩放
+//        // 设置横向缩放
         view.setScaleX(scale * 0.84f);
-        // 设置纵向缩放
+////        // 设置纵向缩放
         view.setScaleY(scale * 0.78f);
-//        我感觉这里处理的是向左滑动的view 的偏移量
 
+        float scaleX = view.getScaleX();
+        float scaleY = view.getScaleY();
+        System.out.println("scaleX : " + scaleX);
+        System.out.println("scaleY : " + scaleY);
+
+
+//        我感觉这里处理的是向左滑动的view 的偏移量
         if (position <= 0.0f) {         // 当前页
 
             //X轴偏移
@@ -167,7 +178,6 @@ public class CardTransformer implements ViewPager.PageTransformer {
             view.setClickable(false);
         }
     }
-
     /**
      * 缩放
      *

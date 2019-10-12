@@ -16,18 +16,18 @@ public class CardFragment extends BaseFragment {
     public TextView cardViewDeviceName;
     public TextView cardViewDeviceSum;
     public TextView cardViewDeviceSumName;
-    public View view;
-
+    public LinearLayout llComponent;
     @Override
     public View initView() {
         System.out.println("initView :" + this);
-        view = View.inflate(getContext(), R.layout.fragment_cardview, null);
-        ivCardViewLogo = view.findViewById(R.id.ivCardViewLogo);
-        cardViewDeviceName = view.findViewById(R.id.cardViewDeviceName);
-        cardViewDeviceSum = view.findViewById(R.id.cardViewDeviceSum);
-        cardViewDeviceSumName = view.findViewById(R.id.cardViewDeviceSumName);
+        llComponent = (LinearLayout) View.inflate(getContext(), R.layout.fragment_cardview, null);
+//        返回的llComponent  就是根view
+//        ivCardViewLogo = view.findViewById(R.id.ivCardViewLogo);
+//        cardViewDeviceName = view.findViewById(R.id.cardViewDeviceName);
+//        cardViewDeviceSum = view.findViewById(R.id.cardViewDeviceSum);
+//        cardViewDeviceSumName = view.findViewById(R.id.cardViewDeviceSumName);
 
-        return view;
+        return llComponent;
     }
 
     @Override

@@ -97,7 +97,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/tvPduCommStatus"
                     android:text="正常"
-                    android:textColor="@color/status_power"
+                    android:textColor="@color/air_normal"
                     android:textSize="14dp" />
             </RelativeLayout>
 
@@ -173,7 +173,7 @@
                     android:layout_marginTop="6dp"
                     android:layout_toRightOf="@+id/tvElectricCommStatus"
                     android:text="正常"
-                    android:textColor="@color/status_power"
+                    android:textColor="@color/air_normal"
                     android:textSize="14dp" />
             </RelativeLayout>
 

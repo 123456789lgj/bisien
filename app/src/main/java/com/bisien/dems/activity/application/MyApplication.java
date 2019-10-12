@@ -27,6 +27,7 @@ import okhttp3.OkHttpClient;
 public class MyApplication extends Application implements Thread.UncaughtExceptionHandler {
     public static MyApplication instance;
     public static int userId;// 根据userId来修改密码
+    public static String userPassword;
     public static LocationBean locationBean;
     public Handler handler;
     public Context context;
@@ -43,6 +44,7 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
     //    设备类型的类型对应的那些具体设备
     public static HashMap<Integer, List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean>> equipments = new HashMap<>();
     public static HashMap<String,String> filterContitions = new HashMap<>();
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -52,10 +54,7 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
         handler = new Handler();
         //判断当前线程是主线程还是子线程
         mainThreadId = Process.myTid();
-//初始化Toast的高度
-        int height = UiUtils.getWindowWidthAndHeight()[1];
-        Log.i(TAG,"height : " +height);
-        toastHeight = height/4;
+
 
         //配置超时时间等信息
         OkHttpClient okHttpClient = new OkHttpClient.Builder()
@@ -66,11 +65,9 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
                 .build();
 
         OkHttpUtils.initClient(okHttpClient);
-//        Glide.get(this)
 
 
     }
-
     @Override
     public void uncaughtException(@NonNull Thread thread, @NonNull Throwable throwable) {
 //        android.os.Process.killProcess(android.os.Process.myPid());
