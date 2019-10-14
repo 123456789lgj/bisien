@@ -58,8 +58,8 @@ public class FireActivity extends BaseActivity {
         }
 //        6 表示警铃
         List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> alarmList = MyApplication.equipments.get(6);
-        System.out.println("alarmList :"+alarmList.size());
         if (alarmList != null) {
+            System.out.println("alarmList :"+alarmList.size());
             for (int i = 0; i < alarmList.size(); i++) {
                 GlobalDataBean.DataBean.HousesBean.EquipmentsBean equipmentsBean = alarmList.get(i);
                 String name = equipmentsBean.getName();
@@ -112,8 +112,9 @@ public class FireActivity extends BaseActivity {
                 for (int i = 0; i < data.size(); i++) {//烟感就只有一个信号
                     tvName.setText(data.get(i).getName());
                     double currentValue = data.get(i).getCurrentValue();
+//                    烟感的状态为正常或告警
                     if (currentValue > 0){
-                        tvCurrentStatusValue.setText("异常");
+                        tvCurrentStatusValue.setText("告警");
                     }
                     if (currentValue == 0){
                         tvCurrentStatusValue.setText("正常");
@@ -126,11 +127,11 @@ public class FireActivity extends BaseActivity {
                         tvNameAlarm.setText(data.get(i).getName());
                         double currentValue = data.get(i).getCurrentValue();
                         if (currentValue > 0){
-                            tvCurrentStatusValueAlarm.setText("异常");
+                            tvCurrentStatusValueAlarm.setText("开启");
                             alarmSwitch.setChecked(true);
                         }
                         if (currentValue == 0){
-                            tvCurrentStatusValueAlarm.setText("正常");
+                            tvCurrentStatusValueAlarm.setText("关闭");
                         }
                     }
                 }

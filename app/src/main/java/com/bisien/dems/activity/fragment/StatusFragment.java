@@ -28,8 +28,6 @@ import com.bisien.dems.activity.utils.MyHttpUtils;
 import com.bisien.dems.activity.utils.UiUtils;
 import com.google.gson.Gson;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
 
 public class StatusFragment extends BaseFragment {
