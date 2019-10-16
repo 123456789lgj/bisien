@@ -23,8 +23,11 @@ git add . 添加要提交的文件
 git commit -m "修改了那些内容进行说明"
 git push 提交到远程服务器
 
-
-
+更新代码流程
+git status （查看本地分支文件信息，确保更新时不产生冲突）
+git branch （查看当前分支情况）
+git checkout remote branch （若分支为本地分支，则需要切换到服务器的远程分支）
+git pull 更新本地代码
 
 
 
