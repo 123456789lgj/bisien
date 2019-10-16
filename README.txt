@@ -32,7 +32,13 @@ git pull 更新本地代码
 
 
 
+git branch lgj 创建本地分支
+git branch 查看本地分支
+git branch -r 查看远程分支
 
+
+git checkout lgj 切换到本地分支lgj
+git 默认有一个主分支，名字是 ： master 
 
 
 
