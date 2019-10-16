@@ -8,6 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -73,8 +74,15 @@ public class HistoryAlarmDialog extends Dialog implements View.OnClickListener{
         window.setAttributes(attributes);
         initView();
     }
+    public boolean llGoneIsShow = false;
     public void second(){
-        arrowDown.clearAnimation();
+        System.out.println("clearAnimatiom .......");
+//        arrowDown.clearAnimation();
+//         arrowDown.clearAnimation() 清除不了属性动画，只能通过下面的这种方式进行清除
+        System.out.println("llGone :" + llGone.isShown());
+        if (llGoneIsShow){
+            ObjectAnimator.ofFloat(arrowDown,"rotation",180f, 0).setDuration(0).start();
+        }
         etContent.setText(null);
         etContent.setHint("输入说明内容");
         llGone.setVisibility(View.GONE);
@@ -126,9 +134,11 @@ public class HistoryAlarmDialog extends Dialog implements View.OnClickListener{
                 if (llGone.isShown()){
                     llGone.setVisibility(View.GONE);
                     ObjectAnimator.ofFloat(arrowDown,"rotation",180f, 0).setDuration(100).start();
+                    llGoneIsShow = false;
                 }else {
                     llGone.setVisibility(View.VISIBLE);
                     ObjectAnimator.ofFloat(arrowDown,"rotation",0f, 180f).setDuration(100).start();
+                    llGoneIsShow = true;
                 }
 
                 break;
@@ -147,7 +157,7 @@ public class HistoryAlarmDialog extends Dialog implements View.OnClickListener{
 //            "category":2,"startTime":"2019-07-23 12:51:35","endTime":null,"confirmTime":"2019-09-19 11:25:19",
 //            "confirmer":"admin","confirmRemark":"fadsfa"}]
             dataBean.setConfirmRemark(content);
-            System.out.println(dataBean.toString());
+//            System.out.println(dataBean.toString());
             Gson gson = new Gson();
             String contentStr = gson.toJson(dataBean);
             String newStr = "[" + contentStr + "]";

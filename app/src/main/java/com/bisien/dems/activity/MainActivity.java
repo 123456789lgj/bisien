@@ -19,6 +19,7 @@ import com.bisien.dems.activity.application.MyApplication;
 import com.bisien.dems.activity.fragment.AlarmFragment;
 import com.bisien.dems.activity.fragment.BaseFragment;
 import com.bisien.dems.activity.fragment.FragmentFactory;
+import com.bisien.dems.activity.fragment.HomeFragment;
 import com.bisien.dems.activity.fragment.StatusFragment;
 import com.bisien.dems.activity.utils.UiUtils;
 import com.bisien.dems.activity.widget.MyTestPopupWindow;
@@ -125,6 +126,9 @@ public class MainActivity extends BaseActivity {
     protected void onDestroy() {
 //        退出应用程序清空当前的过滤条件
 //        清空缓存保证，每次进来之后都是新的fragment，防止
+//        清空Handler中的消息
+        HomeFragment homeFragment = (HomeFragment) FragmentFactory.getFragment(0);
+        homeFragment.mHandler.removeCallbacksAndMessages(null);
         FragmentFactory.sSavedFragment.clear();
         MyApplication.filterContitions.clear();
 //        清理全局数据
@@ -132,6 +136,7 @@ public class MainActivity extends BaseActivity {
         MyApplication.stationMap.clear();
         MyApplication.equipments.clear();
         MyApplication.equipmentTypeName.clear();
+
         super.onDestroy();
     }
 }

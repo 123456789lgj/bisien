@@ -17,6 +17,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bisien.dems.R;
 import com.bisien.dems.activity.application.MyApplication;
+import com.bisien.dems.activity.bean.ChangePasswordBean;
+import com.bisien.dems.activity.bean.CondiditioningBean;
 import com.bisien.dems.activity.bean.EquipmentBean;
 import com.bisien.dems.activity.bean.GlobalDataBean;
 import com.bisien.dems.activity.global.GlobalConstants;
@@ -25,47 +27,60 @@ import com.bisien.dems.activity.utils.ToastUtils;
 import com.bisien.dems.activity.utils.UiUtils;
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
 public class AccessControlActivity extends BaseActivity {
     private RecyclerView recyclerView;
     private static String TAG = "AccessControlActivity";
-    private EquipmentBean.DataBean dataBeanList;
-
+    private ArrayList<CondiditioningBean.DataBean> dataBeanList = new ArrayList<>();
+    long deviceId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_access_control);
         findTitle("门禁系统");
         recyclerView = findViewById(R.id.recyclerView);
-        initData();
+//     门禁的
+        List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = MyApplication.equipments.get(8);
 
+        if (equipmentsBeans != null) {
+            System.out.println("equipmentsBeans :" + equipmentsBeans.size());
+            for (int i = 0; i < equipmentsBeans.size(); i++) {
+                GlobalDataBean.DataBean.HousesBean.EquipmentsBean equipmentsBean = equipmentsBeans.get(i);
+                if (equipmentsBean.getName().toUpperCase().contains("机柜")) {
+                    initData(equipmentsBean.getId());
+
+                    break;
+                }
+            }
+        }
     }
 
-    private void initData() {
-//        List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = MyApplication.equipments.get(Integer.parseInt(8));
-
+    private void initData(long deviceId) {
+        this.deviceId = deviceId;
         showLoading("加载中...");
         MyHttpUtils myHttpUtils = new MyHttpUtils();
-        String url = GlobalConstants.getUrlFirst() + "rest/equipment/get_list";
+        String url = GlobalConstants.getUrlFirst() + "rest/status/get_list_rdata_byequipid/" + deviceId + "/" + 8;
 
-//        String url = "http://localhost:8080/gledeye/rest/basicdata/get_cabinetsiganl";
         myHttpUtils.getDataFromServiceByGet(url, new MyHttpUtils.OnNetResponseListener() {
 
             @Override
             public void onOk(String response) {
-//                Log.i(TAG, "response :" + response);
                 dismissLoading();
-                Gson gson = new Gson();
-                EquipmentBean equipmentBean = gson.fromJson(response, EquipmentBean.class);
-                List<EquipmentBean.DataBean> data = equipmentBean.getData();
+                CondiditioningBean condiditioningBean = new Gson().fromJson(response, CondiditioningBean.class);
+                List<CondiditioningBean.DataBean> data = condiditioningBean.getData();
                 for (int i = 0; i < data.size(); i++) {
-                    String name = data.get(i).getName();
-                    if (name.equalsIgnoreCase("机柜")) {
-                        dataBeanList = data.get(i);
-//                        找到机柜信息跳出循环
-                        break;
+                    CondiditioningBean.DataBean dataBean = data.get(i);
+                    if (dataBean.isVisible()) {//需要展示的信息
+                        int channelType = dataBean.getChannelType();
+                        if (channelType == 1 && "d_door".equals(dataBean.getCode())) {// channelType 等于0 的话，表示数字量
+                            dataBeanList.add(dataBean);
+                        } else {// channelType=2 的话，表示模拟量
+//                            dataBeanList.add(dataBean);
+                        }
                     }
                 }
                 setData();
@@ -84,7 +99,7 @@ public class AccessControlActivity extends BaseActivity {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new SpacesItemDecoration(1,UiUtils.dip2px(8),true));
+        recyclerView.addItemDecoration(new SpacesItemDecoration(1, UiUtils.dip2px(8), true));
         recyclerView.setAdapter(new AccessControlAdapter());
 
     }
@@ -100,15 +115,15 @@ public class AccessControlActivity extends BaseActivity {
 
         @Override
         public void onBindViewHolder(@NonNull AccessControlViewHolder holder, int position) {
-            EquipmentBean.DataBean.EquipmentSignalsBean equipmentSignalsBean = dataBeanList.getEquipmentSignals().get(position);
-            holder.tvName.setText(equipmentSignalsBean.getName());
-            if (equipmentSignalsBean.getCurrentValue() == 0) {
+            final CondiditioningBean.DataBean dataBean = dataBeanList.get(position);
+            holder.tvName.setText(dataBean.getName());
+            if (dataBean.getCurrentValue() == 0) {
 //当前门处于关闭状态
                 holder.tvCurrentStatusValue.setText("关闭");
                 holder.tvCurrentStatusValue.setTextColor(UiUtils.getColor(R.color.count_green));
                 holder.ivSwitch.setChecked(false);
                 holder.ivSwitch.setSwitchTextAppearance(AccessControlActivity.this, R.style.s_false);
-            } else if (equipmentSignalsBean.getCurrentValue() == 1) {
+            } else if (dataBean.getCurrentValue() == 1) {
 //                当前门处于打开状态
                 holder.tvCurrentStatusValue.setText("打开");
                 holder.ivSwitch.setChecked(true);
@@ -121,9 +136,10 @@ public class AccessControlActivity extends BaseActivity {
                 holder.tvCurrentStatusValue.setTextColor(UiUtils.getColor(R.color.count_green));
                 holder.ivSwitch.setSwitchTextAppearance(AccessControlActivity.this, R.style.s_false);
             }
-            holder.ivSwitch.setTag(equipmentSignalsBean.getCurrentValue());
+
             final AccessControlViewHolder holderSwitch = holder;
 //状态发生变化后调用
+            holderSwitch.ivSwitch.setTag(dataBean);
             holderSwitch.ivSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -145,36 +161,71 @@ public class AccessControlActivity extends BaseActivity {
             holderSwitch.ivSwitch.setOnTouchListener(new View.OnTouchListener() {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
-                    switch (event.getAction()){
+                    switch (event.getAction()) {
 //                        再次进行事件的相应
                         case MotionEvent.ACTION_DOWN:
-//                            控制当前门是打开状态时，让门不能再次打开
-                            if (holderSwitch.ivSwitch.isChecked()){
+//                            控制当前门是打开状态时，让门不能再次打开, 当前门状态是打开的状态时只能通过手动来进行关闭
+                            if (holderSwitch.ivSwitch.isChecked()) {
                                 UiUtils.toast("当前门处于打开状态，只能通过手动进行关闭");
-                                return true;
-                            }else {
-
+                            } else {
+                                openDoor((CondiditioningBean.DataBean) holderSwitch.ivSwitch.getTag(),holderSwitch.ivSwitch);
                             }
-                            break;
+                            return true;
                     }
                     return false;
                 }
             });
-                holderSwitch.ivSwitch.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-//                        这里来通过手机控制门禁
-                        UiUtils.toast("通过手机来操作门禁");
-
-                    }
-                });
+//            holderSwitch.ivSwitch.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+////                        这里来通过手机控制门禁
+//                    CondiditioningBean.DataBean tag = (CondiditioningBean.DataBean) v.getTag();
+//
+//                }
+//            });
         }
 
         @Override
         public int getItemCount() {
-            return dataBeanList == null ? 0 : dataBeanList.getEquipmentSignals().size();
-//            return 2;
+            return dataBeanList.size();
         }
+    }
+    public void openDoor(CondiditioningBean.DataBean dataBean, final Switch btnSwitch){
+        showLoading("打开中...");
+        HashMap<String, String> paramsHashMap = new HashMap<>();
+//        需要传递通道号
+        int channelNo = dataBean.getChannelNo();
+        paramsHashMap.put("channelNo",channelNo + "");
+//        具体的状态名称
+        String name = dataBean.getName();
+        paramsHashMap.put("name",name + "");
+        paramsHashMap.put("equipmentId",deviceId + "");
+        paramsHashMap.put("parameter",1 + "");
+        paramsHashMap.put("operator",MyApplication.userName+ "");
+        MyHttpUtils myHttpUtils = new MyHttpUtils();
+//
+        String url = GlobalConstants.getUrlFirst() + "rest/status/control";
+        myHttpUtils.getDataFromServiceByPostByJson(url, paramsHashMap, new MyHttpUtils.OnNetResponseListener() {
+            @Override
+            public void onOk(String response) {
+                dismissLoading();
+                ChangePasswordBean changePasswordBean = new Gson().fromJson(response, ChangePasswordBean.class);
+                if (changePasswordBean != null){
+                    if ("0".equals(changePasswordBean.getCode())){
+                        UiUtils.toast("开启成功");
+                        btnSwitch.setChecked(true);
+                    }else {
+                        btnSwitch.setChecked(false);
+                    }
+                }
+            }
+            @Override
+            public void onNotOk(String msg) {
+                dismissLoading();
+                btnSwitch.setChecked(false);
+                System.out.println("AccessControlActivity :onNotOk :" + msg);
+            }
+        });
     }
 
     static class AccessControlViewHolder extends RecyclerView.ViewHolder {

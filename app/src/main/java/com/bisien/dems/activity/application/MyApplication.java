@@ -28,6 +28,7 @@ public class MyApplication extends Application implements Thread.UncaughtExcepti
     public static MyApplication instance;
     public static int userId;// 根据userId来修改密码
     public static String userPassword;
+    public static String userName;
     public static LocationBean locationBean;
     public Handler handler;
     public Context context;

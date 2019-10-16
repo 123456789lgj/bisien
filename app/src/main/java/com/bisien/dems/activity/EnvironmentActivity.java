@@ -39,6 +39,7 @@ public class EnvironmentActivity extends BaseActivity {
         recyclerView = findViewById(R.id.recyclerView);
 //        设备类型1 表示空调
         List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = MyApplication.equipments.get(1);
+//        环境系统用的是空调的数据
         if (equipmentsBeans != null) {
             for (int i = 0; i < equipmentsBeans.size(); i++) {
                 GlobalDataBean.DataBean.HousesBean.EquipmentsBean equipmentsBean = equipmentsBeans.get(i);

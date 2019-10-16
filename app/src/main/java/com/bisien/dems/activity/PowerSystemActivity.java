@@ -37,9 +37,11 @@ public class PowerSystemActivity extends BaseActivity {
         findTitle("电力系统");
         recyclerView = findViewById(R.id.recyclerView);
         List<GlobalDataBean.DataBean.HousesBean.EquipmentsBean> equipmentsBeans = MyApplication.equipments.get(3);
+//        电力系统拿的是电表的数据
         if (equipmentsBeans != null){
             for (int i = 0; i < equipmentsBeans.size(); i++) {
                 GlobalDataBean.DataBean.HousesBean.EquipmentsBean equipmentsBean = equipmentsBeans.get(i);
+//                配电不止有pdu还有电表，那么拿的是电表的数据，除了pdu的数据之外，剩余的就是电表的数据
                 if (!equipmentsBean.getName().toUpperCase().contains("PDU")) {
                     initData(equipmentsBean.getId());
                     break;
