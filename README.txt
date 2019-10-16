@@ -43,7 +43,7 @@ git 默认有一个主分支，名字是 ： master
 
 
 
-
+git push origin HEAD 在本地分支lgj 下提交代码，实时发下在远程也会创建一个lgj 的分支
 
 
 
