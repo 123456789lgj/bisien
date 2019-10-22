@@ -137,7 +137,12 @@ public class FireActivity extends BaseActivity {
         CondiditioningBean.DataBean dataBean = (CondiditioningBean.DataBean) alarmSwitch.getTag();
         HashMap<String, String> paramsHashMap = new HashMap<>();
 //        需要传递通道号
-        int channelNo = dataBean.getChannelNo();
+        int channelNo = 0;
+        if (alarmSwitchData != null) {
+            channelNo = alarmSwitchData.getChannelNo();
+        }else {
+            channelNo = dataBean.getChannelNo();
+        }
         paramsHashMap.put("channelNo", channelNo + "");
 //        具体的状态名称
         String name = dataBean.getName();
@@ -157,7 +162,7 @@ public class FireActivity extends BaseActivity {
                     if ("0".equals(changePasswordBean.getCode())) {
                         UiUtils.toast("关闭成功");
                         alarmSwitch.setChecked(false);
-                    }else if("-1".equals(changePasswordBean.getCode())){
+                    } else if ("-1".equals(changePasswordBean.getCode())) {
                         alarmSwitch.setChecked(true);
                         UiUtils.toast("关闭失败");
                     }
@@ -193,8 +198,9 @@ public class FireActivity extends BaseActivity {
         });
     }
 
-    private void parseJson(String response, String deviceName) {
+    public CondiditioningBean.DataBean alarmSwitchData;
 
+    private void parseJson(String response, String deviceName) {
         CondiditioningBean condiditioningBean = new Gson().fromJson(response, CondiditioningBean.class);
         if (condiditioningBean != null) {
             List<CondiditioningBean.DataBean> data = condiditioningBean.getData();
@@ -231,6 +237,8 @@ public class FireActivity extends BaseActivity {
                             tvCurrentStatusValueAlarm.setTextColor(UiUtils.getColor(R.color.count_green));
 
                         }
+                    } else if ("c_switch".equals(data.get(i).getCode())) {
+                        alarmSwitchData = data.get(i);
                     }
                 }
             }
