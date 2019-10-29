@@ -1,0 +1,8 @@
+
+intent 可以传递对象，但是这个对象需要实现Parcelable或者Serializable 接口，Parcelable是Android中序列化提供的接口，它是把对象序列化到公共的内存，效率高
+而Serializable 接口是把对象序列化到硬盘上，效率低，这个是java提供的
+
+
+
+You have an error in your SQL syntax; check the manual that corresponds to your MySQ
+这个是MySQL语法错误，需要检查语法配置，我这边原因是在 实体类中写了 index 这个关键字 导致报错，所以在实体类中，个字段千万不要写关键字

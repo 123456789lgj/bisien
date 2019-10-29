@@ -1,0 +1,120 @@
+1.web.xml 主要配置springMVC的前端控制器（核心控制器）
+	 <!-- 配置SpringMVC 的拦截器(也叫过滤器) 前端控制器-->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<!-- 
+			spring 默认加载SpringMVC的配置文件
+			命名规则：servlet-name-servlet.xml  在这里我们的servlet-name为    springmvc-servlet.xml
+			路径规则必须放在WEB-INF下面去，放在classpath下，就必须配置contextConfigLocation
+		 -->
+		<init-param>
+			<!-- 加载SpringMVC配置文件 -->
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:springmvc.xml</param-value>
+		</init-param>
+		 <load-on-startup>1</load-on-startup>
+	</servlet>
+	<!--  拦截所有的请求  ,实现restfull风格, 借助这种特性实现没有扩展名进行访问 
+		如果是这种配置的<url-pattern>/*</url-pattern> 就有可能造成jsp页面以源码的形式进行显示
+	-->
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>/</url-pattern>
+	</servlet-mapping>
+2.配置spring需要扫描的包，把所有的组件进行扫描
+    <context:component-scan base-package="com.test.demo" use-default-filters="true"/>
+	spring 注解的解释
+	@Controller 的意思是把controller 交给spring去管理
+	@RequestMapping()
+	在类上注解作用：起到命名空间的作用，限定访问范围
+	在方法上注解的作用：定义handlerMethod的访问路径
+	1.创建bean对象
+    通过注解的方式创建ServiceImpl的对象
+    注解微Component 就相当于在beam.xml 文件中配置了<bean id="serviceImpl" class="com.bisien.spring.service.impl.ServiceImpl"></beans>
+    由此注解衍生的三个注解：
+    	@Controller 一般用于表现层
+  		@Service	一般用于业务层
+ 		@Repository 一般用于持久层
+  		他们和component的作用是一模一样的
+    2.由于数据注入
+  		@Autowired 自动按照类型进行注入,如果是接口那么注入对应的实现类
+ 		@Qualifier 在自动按照bean的类型注入的基础之上，再按照bean的ID进行注入，它在给类成员注入数据时不能独立使用，但是给方法的形参注入时可以独立使用
+  		@Resource 直接按照bean的ID进行注入，需要写上属性name="ID名"
+    以上注解都是注入其他bean类型
+  		集合类型不能用注解进行注入
+  		@Value 用于注入基本类型和String类型数据，它可以借助Spring的el表达式来读取properties文件中的配置
+    3.@Scope 作用：用于改变bean的作用范围
+  			属性：value用于指定范围的取值
+ 			和xml的取值是一样的
+    4.@PostConstruct 这个注解相当于 初始化的时候调用 init-method
+	    @PreDestroy 这个注解相当于销毁，destroy-method
+    怎样进行选择：
+ 		1.看公司，选择的原则，看我们的配置是不需要经常修改
+		2.xml，修改的话不需要重启服务器xml比较繁琐，xml文件过多找起来不方便 和 注解
+    5.@bean 它是把方法的返回值存入容器中，该注解有一个属性，name:用于指定bean的ID
+		当不指定时，它有默认值就是方法的名称
+    6.@ComponentScan 它就是把当前类看成是Spring的配置类，取代bean.xml文件的
+    7.@Configuration 把当前类看成是Spring的配置类，然后寻找bean.xml 就会在当前类的同级目录进行找
+    8.@Import导入其他配置类，什么时候用看你要不要修饰类中的方法，如果不要就用import     @Import({JdbcConfig.class})
+    9.@PropertyResource("classpath:config/jdbcConfig.properties") 加载配置文件 
+    10.Spring  @Value("${jdbc.driver}") 这个表示配置配置properties文件中的key,到时候Spring的解析器会把value值解析出来
+    11.@Qualifier 预选赛的意思，在形参中使用，目的是选择要注入的对象（此时对象不止一个时才使用这个注解）
+	12.@CrossOrigin(origins = "*", maxAge = 3600)
+       origins： 允许可访问的域列表
+	   @CrossOrigin(origins = "http://localhost:8080")
+	13.@RestController的作用 
+	   @Controller+@ResponseBody两个注解的结合
+	
+3.解决中文乱码
+	<!-- 使用spring中的过滤器解决在请求和应答中的中文乱码问题 ，注意这个要放在前面，否则有可能还是中文乱码问题-->
+	<filter>
+	    <filter-name>encodingFilter</filter-name>
+	    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+	    <init-param>
+	      <param-name>encoding</param-name>
+	      <param-value>UTF-8</param-value>
+	    </init-param>
+	    <init-param>
+	      <param-name>forceEncoding</param-name>
+	      <param-value>true</param-value>
+	    </init-param>
+	 </filter>
+  	<filter-mapping>
+    	<filter-name>encodingFilter</filter-name>
+    	<url-pattern>/*</url-pattern>
+  	</filter-mapping>
+4.<mvc:annotation-driven/>
+    相当于注册了RequestMappingHandlerMapping 和 RequestMappingHandlerAdapter，作用是解决了@Controller注解使用的前置条件
+	当一个请求过来后，第一步：控制层DisPatcherServlet 接受请求，并进行转发
+					  第二步：请求执行Handler交给 处理器映射器：HandlerMapping，执行返回结果
+					  第三步：请求执行Handler 交给处理器适配器：HandlerAdapter 
+					  第四步：处理器适配器HandlerAdapter，调用Controller方法
+					  第五步：Controller 方法返回ModelAndView 交给视图解析器：ViewResolver 进行处理
+5. 配置视图解析器，配置json视图解析器的话，必须要Jackson的jar包
+   如果方法上配置：@ResponseBody，那么就会使用下面的解析器进行解析
+   <bean id="defaultJsonView" class="org.springframework.web.servlet.view.json.MappingJackson2JsonView"/>
+   <!-- 配置视图解析器： 负责解析出真正的物理视图
+			后台返回逻辑视图：index
+			解析出真正的物理视图：前缀 + 逻辑视图 + 后缀
+			/demo/index.jsp		
+	-->
+   <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/web/"></property>
+		<property name="suffix" value=".jsp"></property>
+   </bean>
+6. 自动加载属性配置文件
+   <context:property-placeholder location="classpath:jdbc.properties" />
+   
+7. spring 配置不拦截静态资源
+   springMVC在访问静态资源，需要重新配置，将一切请求转发给DispatcherServlet
+   如果RequestMapping找不到的情况下，然后就会交给Tomcat默认的Servlet进行处理，也就是直接访问静态资源
+   实现方法：
+		<mvc:default-servlet-handler/>
+    	<mvc:annotation-driven/>
+8. 数据库相关配置
+   数据源配置：
+   链接池等信息：这些都是干什么的
+	
+	
+	

@@ -1,0 +1,218 @@
+Tomcat 下载zip包解压就好
+Tomcat 下的Webapps就是部署我们的javaee项目的
+启动Tomcat startup.bat Windows下直接双击
+Tomcat的默认端口是8080
+静态项目：建一个文件夹，然后在里面建一个文件，然后在里面写一个Hello World，接下来发布到Tomcat上，把文件夹赋值到webapps目录下就可以
+如何访问，直接在浏览器中输入localhost:8080/aaa/index.html    aaa表示这个项目，其实就是一个文件夹，index.html 代表资源，就是aaa目录下的一个文件夹
+
+动态项目也就是我们的web项目，比静态项目多了一个WEB-INF文件夹，这个文件夹不可以修改名称，在WEB-INF下存在一个文件web.xml（必须要有），
+标识我们这个项目是web项目
+在WEB-INF文件夹下，有可能存在classes文件夹，又来存放我们的字节码文件，这个classes这个文件夹不是必须有的
+lib目录下存储的是我们的jar包，不是必须要有的
+
+如果直接在浏览器里面输入localhost:8080回车的话，那么访问的就是Tomcat自带的项目，也就是ROOT项目
+
+一般写完项目之后，需要把项目打包成一个war包发给老大，这个war的打包是通过命令jar cvf aaa.war * 这个意思是把当前目录下的所有文件打包成名字问aaa的war包
+
+打开Windows 服务的命令：services.msc
+MySQL的端口号默认为3306
+MySQL的安装教程，安装成功之后，怎么验证，执行命令：mysql -uroot -p就可以进行验证，这种验证是MySql 的服务必须运行起来才可以
+命令开启MySQL的服务：net start mysql 启动服务，必须以管理员的身份启动，关闭服务 net stop mysql
+
+DDL语句：操作数据库和表
+DML语句：操作的是表中的数据，只包含增删改
+DQL语句：操作表中的数据，只能查
+DCL语句：是操作用户的，添加权限或者是删除用户，数据库管理员
+查询当前所有的数据库 show databases; 我们的数据库都是以分号进行结尾的
+表示当前数据有3个
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| test               |
++--------------------+
+创建一个数据库：create database mydb
+删除一个数据库：drop database mydb
+查看当前数据库定义信息：show create database mydb;
++----------+---------------------------------------------------------------+
+| Database | Create Database                                               |
++----------+---------------------------------------------------------------+
+| mydb     | CREATE DATABASE `mydb` /*!40100 DEFAULT CHARACTER SET utf8 */ |
++----------+---------------------------------------------------------------+
+查看当前数据的字符集
+修改字符集：alter database mydb character set GBK(修改mydb 数据库的字符集)
+查看目前正在使用的数据：select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+表示目前没有使用数据库
+use mydb 表示使用某个库
+创建表语句：create table 表名(
+						字段名称 数据类型,
+						字段名称 数据类型,
+						...
+						字段名称 数据类型
+); 最后一个字段后面不需要跟逗号
+数据库中的数据类型
+            int：整型
+            double：浮点型，例如double(5,2)表示最多5位，其中必须有2位小数，即最大值为999.99；
+            char：固定长度字符串类型；        
+            varchar：可变长度字符串类型；
+            text：字符串类型；
+            blob：字节类型；
+            date：日期类型，格式为：yyyy-MM-dd；
+            time：时间类型，格式为：hh:mm:ss
+            timestamp：时间戳类型 格式为: yyyy-MM-dd hh:mm:ss
+create table lgj(
+	sid int(11),
+	name varchar(20),
+	sal double(5,2)  //其中5表示长度为5，精度为2
+	)
+查看数据库中有哪些表：show tables
++----------------+
+| Tables_in_mydb |
++----------------+
+| lgj            |
++----------------+
+查看表结构：desc lgj ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| sid   | int(11)     | YES  |     | NULL    |       |
+| name  | varchar(20) | YES  |     | NULL    |       |
+| sal   | double(5,2) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+删除表格：drop table lgj
+
+DML语句：
+查询表中的所有数据：select * from 表名称;
+							字段名称				对应的字段名称赋值
+插入数据：insert into 表名 (sid,name,sal) values (1,"linjunjie",56.78);
+				如果给每个字段都插入数据的话，可以全部省略
+insert into lgj values (2,"lisi",323.98);
+给某个字段插入数据：insert into lgj (name) values ("菁");
+
+创建约束的表；create table lgj(sid int(11) , name varchar(20) not null , sal double(5,2));
+
+insert into lgj (sid,name,sal) values (1,"",34.44);
+
+
+通过程序控制mysql，数据库
+JDBC 其实就是java语言为数据库定义的一套接口规范，如果想要用java语言操作数据库，这个数据库必须实现这套数据规范
+怎么通过工具链接数据库，最主要的是建立链接，然后输入用户名和密码就OK
+
+
+servlet 详细讲解方法：
+servlet 默认是在第一次访问的时候被创建对象，对象创建完毕之后，就会调用init方法，做相关的初始化工作，servlet是单例的，只创建一次，既然是单例的
+很有可能出现线程安全问题，如果存在多个线程操作共享数据，就有可能存在线程安全问题
+
+getServletInfo() 获取servlet版本，对开发来说没有多大用处
+service 接收请求，并且可以给出回应
+destroy  在service销毁之前调用
+
+MyEclipse 关联Tomcat和启动时删除一些不必要的选项
+在URL-pattern 标签中必须要以 / 头负责无效，这个是在配置接口的时候
+请求转发：客户端发送一次请求，与服务器进行请求转发，而请求重定向是发送了两次请求，请求转发只能转发自己本身服务器中的资源，不能转发到外网
+request.getRequestDispatcher("/MServlet").forward(request,reponse)//不需要携带虚拟目录
+request 是一个域对象，所以可以存储数据，声明周期是在这一次请求中
+
+
+
+
+
+做一个自律的人，只有这样你才有可能得到你想要的一切
+早上8点起床，8点到8点20是洗漱时间，8点20到8点30是锻炼身体时间
+9点到17点30分是上班时间，正常下班后18:30回到房间，然后刷抖音半小时接着19点开始学习
+一直到20:30 开始休息半小时，21点开始学习到22点，22点到22:30分锻炼身体，22:30分泡脚，23点开始准备作息
+
+
+
+
+属性动画  调用clearAnimation() arrowDown.clearAnimation()，不起作用
+
+
+
+
+关于Android 事件的总结，
+一个事件到达一个View上首先会调用，这个View的dispatchTouchEvent(MotionEvent event)事件
+if (onFilterTouchEventForSecurity(event)) {
+	if ((mViewFlags & ENABLED_MASK) == ENABLED && handleScrollBarDragging(event)) {
+		result = true;
+	}
+	//noinspection SimplifiableIfStatement
+	//li.mOnTouchListener 就是我们设置的 
+	//btn.setOnTouchListener(new View.OnTouchListener(){
+	//	 public boolean onTouch(View v, MotionEvent event) {
+    //      return false;
+	//	}
+	//}); 如果这个方法返回为true，那么result的结果就是为true，此时onTouchEvent 这个方式是得不到执行
+	ListenerInfo li = mListenerInfo;
+	if (li != null && li.mOnTouchListener != null
+			&& (mViewFlags & ENABLED_MASK) == ENABLED
+			&& li.mOnTouchListener.onTouch(this, event)) {
+		result = true;
+	}
+	//如果result 的结果为false，那么执行onTouchEvent(event)，这个方法
+	// 在up 事件的时候  有一个 performClick();点击事件的执行
+	//
+	if (!result && onTouchEvent(event)) {
+		result = true;
+	}
+}
+public boolean onTouchEvent(MotionEvent event) {
+	case MotionEvent.ACTION_UP: 
+		performClick();
+		break;
+
+}
+//这个调用的就是我们传递的View.OnClickListener
+ public boolean performClick() {
+	li.mOnClickListener.onClick(this);
+ }
+如果一个控件重写了OnTouchEvent这个方法，那么想要执行它的onClick事件
+那么OnTouchEvent的方法的返回值必须为super.onTouchEvent(event);
+否则无法执行
+ 
+ 
+	 
+
+onInterceptTouchEvent 这个方法只有ViewGroup这样的控件采用，因为它可以包含子view对象
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{"channelNo":"2","parameter":"1","name":"机柜后门状态","equipmentId":"1002551160707184","operator":"admin"}
+
+
+
+
+
+

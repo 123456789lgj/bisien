@@ -1,0 +1,91 @@
+MVC 模式只是把登录案例中，数据获取的功能抽取成model层，在Activity中创建model层的对象，调用获取数据的方法，然后根据返回的数据在activity层，
+处理相关的逻辑
+MVP 模式 ，就是把业务逻辑层抽离出来，放在presenter层，然后通过presenter 访问model层，产生的数据回传到presenter层，presenter层进行业务处理之后
+交给view层，跳转都相关的界面，或者弹出相关的提示
+dagger2 依赖注入，依赖的意思就是，MainActivity 对某个对象（User）持有引用，即就是依赖这个对象（User），这样做的话，MainActivity 和User对象
+耦合度太高,如下代码所示，当User的构造方法发生变化时，此时MainActivity 持有的user对象这块也需要改变，耦合度太高
+class MainActivity{
+	public void onCreate(){
+		User user = new User("李国菁"，28);
+	}
+}
+class User{
+	public User(String userName,int age){
+		this.userName = userName;
+		this.age = age;
+	}
+}
+因此dagger2就产生了，想要用User 对象，此时会有一个容器DI (dependence inject),这个容器专门负责获取User 对象，然后把User对象注入到MainActivity中去
+最终MainActivity中就存在User对象的引用
+component 是 MainActivity 和 Module 之间的桥梁，在Module 通过@Provide 生产需要的依赖(也就是需要的对象)，然后在MainActivity中通过注解@Inject 方式可以
+获取所需要的对象
+
+
+AbstractView 是presenter 的抽象接口，AbstractPresenter 是继承 AbstractView 的抽象接口，BasePresenter是实现AbstractPresenter 的presenter的基类
+ interface AbstractPresenter extends AbstractView
+ BasePresenter extends AbstractView implement AbstractPresenter、
+ 
+ 
+ 
+NestedView 和ScrollView几乎没有区别，NestedView 是Google 在MT风格中推出的控件，来替代ScrollView
+RecycleView是代替了ListView
+ 
+ 
+byte     1字节               
+short    2字节               
+int      4字节               
+long     8字节               
+char     2字节（C语言中是1字节）可以存储一个汉字
+float    4字节               
+double   8字节8字节       
+
+Zygote 的作用：启动SystemServer 和孵化进程
+进程启动的三段式：
+	进程启动，
+	准备工作，
+	Loop
+Zygote的启动流程，init启动之后 
+布局中上面，下面都占的情况下，如何让某个控件(比如Fragment)把中间的剩余部分占完，可以指定中间的控件的高度为0dp，权重为1，此时中间属于的部分都被
+该控件占用
+ 
+java内存分析
+	内存3个区，java代码执行基本都在这3个区域
+	栈：每个方法调用时都会进栈（存储局部变量），执行完之后弹栈，其实栈也可以分为本地方法栈和虚拟机栈，本地方法栈是为虚拟机使用到native方法提供服务
+	虚拟机栈：每个方法从调用到执行完成的过程，就对应着一个栈帧在虚拟机栈中从入栈到出栈的过程，java栈中引用指向的是堆中的对象
+	堆：用来存储对象的地方，new 是用来创建对象，java堆是所有线程共享的一块区域，唯一目的就是来存储对象，
+	方法区：存放程序中类的信息，静态变量，常量等(常量就是被字符串引起来的东西)，方法区实际是在堆中的，
+	区分开来也没关系，因为方法区是一个相对独立的区域
+	new 了一个对象，首先对象的属性初始化，这些属性是和对象本身捆绑在一起的，对象实际在内存中是有一个地址的，然后把地址交给栈里面的引用
+在使用AppBarLayout的过程中发现，APPBarLayout遮挡下面的内容，最后发现是因为没有给FrameLayOut指定Layout_behavior属性导致，特别注意FrameLayout的根
+布局不能是CoordinatorLayout(协调者布局)，
+RecyclerView 的item不居中问题，
+
+
+一个Service可以同时被多个客户端（客户端比如Activity1，Activity2）进行绑定，当没有任何对象绑定到Service的时候，该Service会被系统销毁
+bindService开启的服务，当该进程挂的时候，该服务也随之挂掉，也不会在手机开发者选项里面查看到该服务
+但是StartService开启的服务，当该进程挂的时候，魅族手机是该服务一定挂掉
+
+
+Android Service执行unbind后再次执行bind的问题
+在执行了startService、bindService、unbindService之后，再次执行bindService。这时发现Service的onBind方法并没有执行，而是执行的onRebind方法
+但是有个要求，就是在onUnbind方法的时候返回true。
+如果onUnbind方法返回false，则调用bindService的时候onBind不再执行，而且调用unbindService的时候，onUnbind也不会执行。
+如果onUnbind方法返回true，再次调用bindService的时候会执行onRebind，再调用unbindService的时候，onUnbind也会执行。
+class Demo{
+	puclic static void main(String[] args){
+		int[] arr = {2,32,4,54,234};
+		
+		for(int i = 0; i < arr.length;i++){}
+	
+	}
+
+}
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,29 @@
+
+Android Studio 会根据 compileSdkVersion 的值去加载对应版本的源码包。所以，源码包选择下载的版本和编译版本 保持一致。
+studio如果关联不到源码：找到 jdk.table.xml,找到源码相应版本的 < sourcePath>标签,把源码路径写进去就可以了。
+
+源码路径：
+~/your-sdk-path/sources/
+Windows:
+例如我的是: ~/Library/Preferences/AndroidStudio3.0/options/jdk.table.xml
+
+
+app:compileDebugJavaWithJavac
+Execution failed for task ':app:compileDebugJavaWithJavac'
+在Android Studio 的Terminal 界面输入 gradlew compileDebug
+就可以输出比较详细的信息，还可以在后面跟上 -info或者-debug的选项得到更详细的信息
+
+有可能是JAVA_HOME 出现问题，如果是JAVA_HOME出现问题，那么修改完之后，记得重启studio 哦
+在还有可能是gradle 编译版本需要更高的，当前编译版本太低
+org.gradle.execution.MultipleBuildFailures: Build completed with 1 failures
+
+解决办法：
+在build.gradle   android{}中加入 
+  compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+
+
+

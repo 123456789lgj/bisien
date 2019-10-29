@@ -1,0 +1,61 @@
+a90b0a26e582eacbb5c16d4cd5c6b113  
+touch 创建文件
+mkdir 创建文件夹
+cp -r 复制
+rm -r 删除
+rm *.txt  删除所有带有txt的文件
+tar -cvf test.tar *.py   打包所有文件为py的文件
+tar -xvf test.tar  解包
+kill -9 进程号，强制杀掉某个进程
+df -h 查看硬盘还有多大
+du -h 当前文件夹有多大
+	
+
+
+
+
+
+
+
+
+/system/media/EStickerRes/EStickerRes_Auto/EStickerRes_TCL-AU-MT5658-S1_131_default.xml
+
+/storage/28C8-D26F/TCL DEMO
+
+/data/misc/EstickerRes/TCL/  拷贝视频的路径
+
+23+11+16
+/storage/sdcard0/0/Android/data/com.tcl.esticker/files/EStickerRes_S38CT04.zip  //下载资源路径
+/storage/sdcard0/0/Android/data/com.tcl.esticker/files/EStickerRes_S38CT04/EStickerRes_Auto
+1						0.2
+3                       0.6
+7                       1.4
+15						3
+31						6.2
+64						12.8
+128						25.6
+258						51.6
+516						102.2
+
+AP BDSC 区域：TCL-ME-MT58K-S1
+AP 非BDSC 区域：TCL-AP-MT58K-S1
+EU TCL 品牌：TCL-EU-MT58K-S1
+AU TCL品牌：TCL-AU-MT5658-S1
+LA TCL 品牌：TCL-LA-MT5658-S1
+CA TCL 品牌：TCL-CA-MT58CF-S1
+
+
+
+
+1、打开esticker应用，检查本地资源是否与服务器资源一致，如果不一致弹出是否下载的对话框（如果本地没有资源也会弹出是否下载的对话框）
+2、用户点击确定按钮，开始下载，下载完成后开始解压，解压成功后，点击进入卡牌自动展示页面（开始下载和解压都是有当前的进度条）
+3、打开自动展示界面，最上边显示esticker的标题，实际就是资源文件配置的一张图片，（比如p6超清薄电视）下面是属于哪个系列的标注（比如p6系列）
+4、接下来先介绍每个功能，先显示这个功能的大标题（比如：无缝超清薄），然后逐一展示这个功能的小标题，（比如：金属超窄边框、超薄机身、等），小标题展示完成之后，
+放大最先展示的第一个小标题，同时播放对应的apng图片，播放完成之后放大第二个小标题，同时播放对应的apng图片，以此类推。
+5、等到上一个功能点展示完成之后，然后这个功能相关大小标题全部退出，然后展示下一个功能点。
+6、按照上面的规则不停的循环播放。
+
+10.120.199.250  kangjp  junp.kang10
+source build/envsetup.sh
+lunch 20
+

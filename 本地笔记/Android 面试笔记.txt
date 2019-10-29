@@ -1,0 +1,113 @@
+动画方面：
+	帧动画：一张一张图片的播放，如果图片过大的话，可能会出现内存溢出的现象，解决方法，先解析animalList.xml文件解析出来，
+	就是播放动画时，把上一张的bitmap对象回收掉
+	
+	补间动画和属性动画的区别：补间动画只产生了一个效果值但是其真实的坐标位置没有发生改变，
+事件的传递机制：
+	事件的传递机制是，首先一个事件是由Activity先得到这个事件，然后Activity把这个事件再传递给根View，根View再把这个事件传递给它的子View，这样一层
+	一层传递，最后直至传递给最后一个子View，调用的过程先是：Activity的dispatchTouchEvent，Window的dispatchTouchEvent，然后是DecorView的
+	dispatchTouchEvent，最后才到View的dispatchTouchEvent，
+	在ViewGroup中可以重新OnInterceptTouchEvent对事件进行拦截，当返回为TRUE的时候，表示事件拦截成功，不会向下进行分发，
+	接着会调用自身的onTouchEvent()，进行事件消费
+	当OnInterceptTouchEvent()，返回为false的时候表示对该事件不做拦截处理，事件继续向子View进行分发
+	默认情况下当OnInterceptTouchEvent()，返回值为false
+	事件的传递是从上往下传递的，事件的处理是从下往上进行的
+设计模式：
+	单例分为懒汉式和恶汉式，私有构造方法，提供公共的访问方式
+	懒汉式是需要的时候再创建，饿汉式直接创建
+	MVP设计模式，M mode层，用来产生数据，V view层用来进行视图交互，P Presenter 层，用来连接View层和Mode层，首先举例登录案例，
+	VIew层主要是获取用户名和密码，然后交给Presenter层进行数据格式校验，如果校验成功，然后通过mode层返回数据，此时的数据要么是成功，要么是失败
+	然后把这个信息交给presenter，presenter把数据传递给View层，View层根据数据做出相应的动作
+	
+	观察者设计模式，定义接口，提供方法，当被观察者发生变化的时候通知观察者，Android源码中点击事件就是观察者设计模式setOnClickListener();
+	工厂设计模式，其实就是生产各种各样的对象，举例说明：在实际应用中，MainActivity中，底下导航栏切换的过程中，需要加载不同的Fragment，我们可以
+	通过FragmentFactory生产所需要的Fragment，然后用hashMap进行缓存
+多线程之间的通讯：
+	Android 通过Handler进行主线程与子线程之间的通讯，当new的Handler在中线程的时候，此时发送消息，那么该消息就会加入到主线程的队列里面去
+	looper怎样和当前线程进行绑定，可以通过 threadLocal的set方法，threadLocal.set(new Looper(quitAllowed));
+	Looper.prepare()这句话的作用是Looper与当前线程进行绑定，
+	在实例化Handler的时候，通过Looper.myLooper()获取Looper，然后再获得Looper中的MessageQueue。
+	msg.target = this;这句话的意思就是当前的Handler赋值给Message的target
+	也可以通过runOnUiThread方法进行主线程与子线程之间的通讯
+	多线程并发问题：
+跨进程通讯：广播：分为静态广播和动态广播，静态广播需要在xml文件中注册，不需要开启Activity都可以接收到，动态广播是通过代码的形式进行注册的，
+	需要打开注册的Activity的才可以接收到，注册完成之后记得取消注册，否则会造成内存泄漏（内部类会持有对外部类的引用）
+	AIDL：2个应用之间可以AIDL进行通讯，启动服务，绑定服务
+	contentProvider，提供对应的URI进行访问
+性能优化：
+	尽量减少布局的嵌套
+    能new出来的控件比布局文件中的控件加载快（布局文件中的控件都是通过反射的方式进行加载的，比较慢）
+    减少过度绘制，可以在开发者选项中开启"调试GPU过度绘制"，然后根据对应的颜色，进行判断不必要的绘制，红色的话，就是绘制超过4层
+	在点击事件中比如有10个setOnClickListener，我们不要在每个setOnClickListener中创建一个匿名内部类，尽量减少对象的创建
+	尽量减少刷新次数，尽量避免后台有高的CPU线程运行
+	内存增加导致GC频繁，从而引起卡顿
+	GC会占用主线程，时间过长的话就会卡主主线程
+	60HZ是屏幕刷新的理想频率，60fps对应的是帧率，每隔16ms，刷新一次
+	卡顿原因：我们的界面在16Ms中没有绘制完成，为什么是16毫秒这个由硬件决定，一般都是60fps，一般Android系统，每隔16Ms会发出一个VSYNC信号
+	Vertical Synchronization(垂直同步)的缩写，CPU和GPU的处理时间必须小于16.6Ms，这样才能避免卡顿
+自定义控件：
+	自定义控件我们最重要的就是onMesure控件的测量
+	onLayout控件位置的摆放，
+	onDraw控件的绘制，不要在onDraw里面创建对象，因为onDraw会被频繁的调用
+内存泄漏：
+	内存泄漏的本质是，这个对象已经没用了，但是还被其他对象引用，导致GC无法回收
+	内存泄漏注意的点，在开发过程中我们尽量使用ApplicationContext，代替ActivityContext
+	IO操作关流，数据库操作关流，动态广播注册之后要注销
+	bitmap在不使用时调用recycle()释放内存
+	在Activity结束之前，清空消息队列中的消息，或者使用静态的Handler，匿名内部类对外部类持有引用
+	可以使用命令检查内存占用情况：dumpsys meminfo package
+	我们可以退出整个程序，然后点击垃圾回收器，用命令查看Activity的个数，来看是不是内存发生泄漏
+	也可以通过LeakCanary 来检测，还有可以使用studio中Monitor，来进行调试，点击dump来进行内存拍照，进而进行分析
+JS和Android交互
+	//让webView 支持JS
+	webView.getSettings().setJavaScriptEnabled(true);
+	加载网页loadURL();
+	js 调用Android 通过   @JavascriptInterface 调用
+	Android调用js 如下
+	webView.loadUrl("javascript:test()");
+java内存管理机制：
+	java内存主要分为栈、堆、方法区，
+	栈，方法调用之前先进栈，调用完成之后就会弹栈，栈中存放的是对象的引用
+	堆，new出来的对象都是存放在堆中，
+	方法区存放的是，类的一些基本信息，静态变量，常量池等
+binder机制：也就是在不同进程里面进行数据交换
+	binder机制，从framework的角度来说，Binder是ServiceManager链接AMS、WMS之间的桥梁
+	C/S架构，进程A访问进程B是通过共享内存进行的（这里的共享内存是底层驱动里面的）
+	假设服务端启动就会在共享内存中注册一个IBinder的引用（这个引用就是对这个服务的描述，类名）
+	Proxy 用于客户端向IBinder驱动写数据，Stub通过服务器向客户端来写数据
+	attachInterface，在初始化的时候，就会绑定一个descript和owenr，方便到时候同进程的话，直接取出来 
+	service回调Android，使用remoteCallBackList接口
+	
+Jni技术
+	首先配置环境，然后再用由native方法的java代码生成头文件（打开目录，然后执行javah 包名+类名），
+	在main目录下创建jni目录，然后创建Android.mk文件，在jni目录下执行ndk-build命令生成.so文件
+anr问题分析：
+	data/anr/traces.txt
+	按键时间在5秒之内没有响应，广播事件再10秒之内没有处理完成，服务在20秒之内没有处理完成，
+	排查service 有没有anr的时候可以通过service的onCreate和onStartCommond有没有做耗时操作，比如IO操作，复杂的数据运算
+线程池：
+	线程池，核心线程数 3，最大线程数4，等待区域5，当有3个线程过来以后，机会立马执行，再有5个线程过来之后，进入等待区域，在接着又线程过来之后
+	就会开启4条线程，等于现在是7条线程同时执行，当等待区域达到5个之后，再有线程过来之后，就会抛异常，
+	SynchronousQueue  直接提交，也就是上面讲到的所有任务不进入队列去等待。此时小于核心线程就增加，多于或等于核心线程数时，还是增加线程，
+	最大为线程池中的最大允许。超出就拒绝。
+
+    LinkedBlockingQueue  无界队列 此时超过核心线程后的任务全部加入队列等待，系统最多只能运行核心线程数量的线程。
+	这种方法相当于控制了并发的线程数量。
+
+    ArrayBlockingQueue   有界队列  此时超过核心线程后的任务先加入队列等待，超出队列范围后的任务就生成线程，
+	但创建的线程最多不超过线程池的最大允许值。
+IntentService
+	在onHandleIntent()在此方法中处理耗时操作
+支付过程：
+	客户端发送结算请求到服务器，服务器生成订单信息给客户端，客户端支付时通过支付宝的jar包，发送给支付宝的服务器，当支付成功时，支付宝的服务器
+	会通知我们自己的服务器，然后修改状态成已支付状态，然后客户端刷新之后，
+	秘钥加密，公钥验签的过程
+		  
+Activity的专场动画 transition
+共享元素转化：
+共享元素：从第一个Activity慢慢渐变拉伸成第二个Activity的view，就是共享元素
+设置特殊的属性，这个属性叫做transitionName=“lgj”，系统在跳转的过程中就会根据这个transitionName的字符串进行判断2个图片是不是进行专场动画 
+	
+	
+	
+	

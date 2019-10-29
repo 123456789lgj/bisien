@@ -1,0 +1,42 @@
+关于Android 事件的总结，
+一个事件到达一个View上首先会调用，这个View的dispatchTouchEvent(MotionEvent event)事件
+if (onFilterTouchEventForSecurity(event)) {
+	if ((mViewFlags & ENABLED_MASK) == ENABLED && handleScrollBarDragging(event)) {
+		result = true;
+	}
+	//noinspection SimplifiableIfStatement
+	//li.mOnTouchListener 就是我们设置的 
+	//btn.setOnTouchListener(new View.OnTouchListener(){
+	//	 public boolean onTouch(View v, MotionEvent event) {
+    //      return false;
+	//	}
+	//}); 如果这个方法返回为true，那么result的结果就是为true，此时onTouchEvent 这个方式是得不到执行
+	ListenerInfo li = mListenerInfo;
+	if (li != null && li.mOnTouchListener != null
+			&& (mViewFlags & ENABLED_MASK) == ENABLED
+			&& li.mOnTouchListener.onTouch(this, event)) {
+		result = true;
+	}
+	//如果result 的结果为false，那么执行onTouchEvent(event)，这个方法
+	// 在up 事件的时候  有一个 performClick();点击事件的执行
+	//
+	if (!result && onTouchEvent(event)) {
+		result = true;
+	}
+}
+public boolean onTouchEvent(MotionEvent event) {
+	case MotionEvent.ACTION_UP: 
+		performClick();
+		break;
+
+}
+//这个调用的就是我们传递的View.OnClickListener
+ public boolean performClick() {
+	li.mOnClickListener.onClick(this);
+ }
+如果一个控件重写了OnTouchEvent这个方法，那么想要执行它的onClick事件
+那么OnTouchEvent的方法的返回值必须为super.onTouchEvent(event);
+否则无法执行
+	 
+
+onInterceptTouchEvent 这个方法只有ViewGroup这样的控件采用，因为它可以包含子view对象
