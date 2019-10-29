@@ -1,0 +1,21 @@
+
+全局搜索 Ctrl+Shift+ F
+提取全局变量：Ctrl+Alt+F
+
+提取局部变量：Ctrl+Alt+V
+代码格式化; Ctrl + Alt +L 
+
+快速生成成员变量的快捷键是Ctrl+Alt+f
+快速生成成员变量的快捷键是Ctrl+Alt+B 查看子类
+
+
+http://svn03.tclking.com/svn/delivery2/trunk/apps/E_Help_MS838
+http://svn03.tclking.com/svn/delivery2/trunk/apps/E_Help_MS838P6
+http://svn03.tclking.com/svn/delivery2/trunk/apps/E_Help
+动画丢帧
+bitmap不调recycle方法的区别
+binder传递对象，跨进程通讯
+binder 底层异步
+性能优化，内存优化
+多线程并发，ThreadPool
+

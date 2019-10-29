@@ -1,0 +1,94 @@
+//通过命令导出数据库，lgj 是密码 mydb 是数据库名称 e:\jj.sql 是需要存入哪里，并且文件名叫什么
+mysqldump -uroot -plgj mydb> e:\jj.sql
+use mydb;  使用某个库
+source f:/zq.sql;  导入命名
+
+
+数据库的id生成策略：
+	id 为32 位的字符串数据：<generator class="uuid.hex"/>  这是在hibernate3.0 之后，这个在配置时，需要指定对应的id为String类型
+	
+	
+通过代码链接数据库
+	Class.forName("com.mysql.jdbc.Driver");
+	Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/mydb","root","lgj");
+
+//创建表语句
+create table user(name varchar(20),password varchar(50));
+//查询表，根据用户名和密码进行查询
+select * from user where name = ? and password = ?;
+根据姓氏进行查询，查询所有姓李的人
+SELECT * FROM cst_customer WHERE cust_name LIKE "李%";
+查询姓氏是王的并且来源是小广告的人员信息
+SELECT * FROM cst_customer WHERE cust_source = "小广告" AND cust_name LIKE "王%";
+//插入数据
+insert into user(name , password) values(? , ?);
+//更新数据，根据ID更新你所需要的数据
+update 表名 set name = ? where id = ?; 
+"update lgj set name = ?,age = ? where name = ?" 
+//删除数据 ，根据id删除对应的数据
+delete from 表名 where id = ?;
+//聚合函数：查询数量，查询年龄大于多少岁的总体数量
+select count(*) from lgj where age > ?
+//根据别名进行查询，AS 关键词就是用来表示一个词的别名的
+SELECT c.cust_id FROM cst_customer AS c;
+//排序查询  根据id 进行降序查询
+select * from cst_customer order by cust_id desc;
+
+
+
+
+分组查询，根据来源统计个数 统计小广告来源的有2个
+SELECT cust_source,COUNT(*) FROM cst_customer GROUP BY cust_source;
+
+
+/*
+		 * 	SQL 的多表查询
+		 * 		连接查询：
+		 * 			交叉连接：（这种方式一般不用）
+		 * 				笛卡尔积
+		 * 			select * from A,B; A和B表示的是两个表
+		 * 			内连接：关键字 ：inner join （inner可以省略）(这种方式查到的都是两个表公共的部分)
+		 * 				隐士内连接：select * from A,B where A.id = B.aid;
+		 * 				显示内连接：select * from A inner join B on A.id = B.aid;(显示内连接就是可以看到有关键字：inner join)
+		 * 			外连接：left outer join (outer 可以省略)
+		 * 				左外连接：	select * from A left outer join B on A.id = B.aid;(查到的是A的所有和A、B的公共部分)
+		 * 				右外连接：    select * from A right outer join B A.id = B.aid;(查到的是B的所有和A、B的公共部分)
+		 * */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- spring基于xml的声明事务控制 -->
+	<!-- 第一步：配置事务管理器 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	<!-- 第二步：配置事务管理器 -->
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<!-- 配置事务的属性 -->
+		<tx:attributes>
+			<tx:method name="*"/>
+			<tx:method name="find*"/>
+		</tx:attributes>
+	</tx:advice>
+	<!-- 
+		第三步：配置aop
+			要配置的是：切入点表达式
+			通知和切入点表达式关联
+	 -->
+	 <aop:config>
+	 	<aop:pointcut expression="execution(* com..*.*(..))" id="pt1"/>
+	 	<aop:advisor advice-ref="txAdvice" pointcut-ref="pt1"/>
+	 	
+	 </aop:config>
+

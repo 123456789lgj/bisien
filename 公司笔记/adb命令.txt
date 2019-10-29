@@ -1,0 +1,242 @@
+http://mantis.tclking.com:8090/view_all_bug_page.php
+如果该包加入黑名单，想启动该应用程序的话命令为
+am start -n com.tcl.hdr.vod/com.tcl.hdr.vod.videosort.VodSortActivity
+am start -n com.tcl.vod/com.tcl.vod.MainActivity
+adb shell setprop persist.tcl.debug.installapk 1
+
+logcat -v threadtime -f /data/log54.log
+夜神模拟器连不上的解决方案
+nox_adb.exe connect 127.0.0.1:62001
+
+am start -a com.tcl.selfbuy.action.cyberui.detail --es videoId 59bf868653e3ac3630003f8b
+am start -a com.tcl.selfbuy.action.videosort --es cpCode rqdm
+am start -a com.tcl.selfbuy.action.videosort --es cpCode 1905
+am start -a com.tcl.selfbuy.action.videosort --es cpCode sdas 
+am start -a com.tcl.selfbuy.action.payPackageActivity --es cpCode 1905 --es fromPackageName launcher
+
+获取系统版本
+getprop ro.build.version.release
+
+am start -n com.tcl.videoplayer/com.tcl.common.mediaplayer.video.UI.VideoPlayerActivity  -a android.intent.action.VIEW -d http://vipmp4i.vodfile.m1905.com/201712071345/843b2aab4143bf75ba03278f31ec09cb/movie/2017/06/07/m20170607ROUGA9UXPUCU35FG/275FEDB040495DB33EBBB2E0A.mp4?sr=22 -t video/*
+
+ am start -a com.tcl.selfbuy.action.payPackageActivity --es cpCode 1905 --es order_channel launcher
+
+am start -a com.tcl.selfbuy.action.cyberui.detail --es videoId 59c5f50220383745d0986b25
+adb shell setprop debug.service.adb.root 1
+adb root
+修改问价权限
+chmod 777 文件名 -R  大写的R
+查看服务查看esticker的所有服务忽略大小写
+dumpsys activity s | grep -i esticker  
+
+源码编译命令
+/samba/ms938/938_svn/AndroidM_Alpha_20151210
+source build/envsetup.sh
+lunch 20
+packages
+apps
+mkdir FourKGarden
+传输成功之后，然后执行下面命令
+mm -B
+
+am start -a com.tcl.selfbuy.action.history.detail --es videoId 59bf868653e3ac3630003f8b
+
+mount system命令：
+mount -o remount,rw /system
+
+使用adb命令通过关键字过滤log:
+ adb shell
+ busybox grep guolong
+ 
+ SVN下载命令
+ svn co SVN地址
+ 
+ 杀死所有与CyberUI有关的进程：
+ adb shell busybox killall com.tcl.cyberui
+ apk安装不上去时用
+ adb shell setprop persist.tcl.debug.installapk 1
+ 
+ dumpsys package com.tcl.cyberui//查看版本信息
+ 
+ cat /data/system/packages.xml | busybox grep com.tcl.cyberui
+ TCLOUD_QUERY_ORDER_TEST
+  
+查看布局：
+setprop debug.layout 1
+查看当前的activity
+ dumpsys window | grep -i focus
+
+通过apk查看包名：
+aapt dump badging C:\Users\dabao\Desktop\UserCenter.apk
+
+1.查看版本：
+cat /data/system/packages.xml | busybox grep com.tcl.cyberui
+
+
+2.获取log
+adb logcat > E://1.txt
+
+http://androidbook.blogspot.com/p/book-code-downloads.html
+
+TCL-CN-MS938-Q65X1-CUD
+
+3.过滤Log
+logcat | busybox grep guolong
+
+4.
+dumpsys package com.tcl.cyberui
+
+5.
+mount -o remount, r/w system
+
+6.通过adb命令启动应用
+启动的方法为
+
+      $ adb shell
+      $ am start -n ｛包(package)名｝/｛包名｝.{活动(activity)名称}
+
+程序的入口类可以从每个应用的AndroidManifest.xml的文件中得到，以计算器（calculator）为例，它的
+
+package="com.android.calculator2" …>…
+
+由此计算器（calculator）的启动方法为：
+
+# am start -n com.android.calculator2/com.android.calculator2.Calculator
+
+7.启动腾讯云视听
+ am start -n com.ktcp.video/com.ktcp.video.activity.MainActivity
+ 
+8.查看本地<本地磁盘中apk的AndroidMenifest.xml>文件
+aapt dump badging C:\Users\krouky\Downloads\app_1455607282578.apk
+
+9.adb 端口号被占报adb server is out of date.  killing...解决方法：
+	①adb nodaemon server，获取的端口号是5037
+	②netstat -ano | findstr "5037" 查看占用5037端口号的进程
+	C:\Users\krouky>netstat -ano | findstr "5037"
+  TCP    127.0.0.1:5037         0.0.0.0:0              LISTENING       7732
+  TCP    127.0.0.1:5037         127.0.0.1:49942        TIME_WAIT       0
+  TCP    127.0.0.1:5037         127.0.0.1:49943        TIME_WAIT       0
+  TCP    127.0.0.1:5037         127.0.0.1:64054        ESTABLISHED     7732
+  TCP    127.0.0.1:49895        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49897        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49904        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49905        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49906        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49911        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49912        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49913        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49918        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49922        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49926        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49927        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49928        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49929        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49930        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49931        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49935        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49939        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49940        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49941        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49944        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49947        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:49957        127.0.0.1:5037         TIME_WAIT       0
+  TCP    127.0.0.1:64054        127.0.0.1:5037         ESTABLISHED     7332
+	③打开任务管理器，结束进程号为7332的进程
+
+10.反编译：
+删除根目录下的classes.dex和class-dex2jar.jar
+①将apk文件通过zip解压，将classes.dex文件放在 dex2jar-2.0根目录下；
+②在cmd下进入dex2jar-2.0根目录并执行	d2j-dex2jar classes.dex
+③使用jd-gui打开②生成的classes-dex2jar.jar文件
+④进入apktool目录下，将apk文件放在该目录下
+⑤在cmd中执行apktool d TestAndroid.apk
+
+11.查看内存：
+ adb shell
+ procrank
+ procrank | busybox grep com.tcl.vod
+ dumpsys meminfo com.tcl.esticker
+ 
+12.查看栈信息
+dumpsys activity activities
+
+13.彻底解决adb 安装错误
+利用adb shell进入系统，进入/data/app或者/data/data，删除跟你安装的apk同样的包名；
+
+
+按Ctrl+C退出系统，利用adb pull /data/system/packages.xml命令将packages.xml放到你PC机本地，然后找到你需要的包名，删除<package>到</package>的一段数据。例如：
+
+<package name="com.Android.wallpaper" codePath="/system/app/LiveWallpapers.apk" nativeLibraryPath="/data/data/com.android.wallpaper/lib" flags="1" ft="11b7e237e00" it="11b7e237e00" ut="11b7e237e00" version="10" userId="10012">
+<sigs count="1">
+<cert index="2" />
+</sigs>
+</package>
+
+保存packages.xml，然后adb push packages.xml /data/system将packages.xml文件送回设备中。
+
+
+然后再次adb install安装你的apk文件，看看是否success。
+
+
+如果还不能成功，还有一种可能性，就是你的安装包与之前设备上的安装包签名不一致，或者你的安装包根本就没有签名。这时候采用adb uninstall 包名卸载之前的安装包，再次adb install 安装你的apk文件。
+
+
+如果还不行，请查看logcat，进一步分析具体原因。
+
+
+如果你用logcat还分析不出来，那么请求神的帮助吧。
+
+14、查看手机分辨率：
+adb shell wm size
+adb shell wm density
+
+1、执行命令setprop persist.sys.buy.serverurl http://124.251.105.28:8090
+2、重启电视
+3、连接adb抓log
+4、adb shell busybox killall com.tcl.vod 杀死vod进程
+5、插拔网线（重新接受网络）
+6、播放欢乐颂第40集 5分钟
+
+15.3700-768 调屏参：
+cli
+pmx.s.s 0
+pmx.s.p 76
+
+16.查看布局层次：
+dumpsys SurfaceFlinger
+
+adb shell setprop debug.layout 1
+
+17.录屏：
+adb shell screenrecord /sdcard/demo.mp4
+
+18.通过串口输入命令如：dd if=/dev/zero of=/data/a.txt bs=1024m count=9 向data分区填充空文件直至data分区剩余空间小于apk两倍大小
+
+
+adb shell am broadcast -a 
+
+adb shell am broadcast -a android.intent.action.BOOT_COMPLETED
+
+adb shell screencap -p [filepath]
+
+setprop persist.sys.buy.serverurl http://124.251.105.28:8090
+
+logcat | busybox grep "fxc"
+
+查看视频的第一帧画面
+也可以dump一下yuv，看一下解码出来是不是黑的，dump方法
+起播前
+su
+mount -o remount /data
+chmod 777 /data
+setprop ms.frame.dump 1
+setprop ms.frame.dir data
+setprop ms.frame.scale 1
+setprop ms.frame.on 0
+
+下这个prop开始dump：setprop ms.frame.on 1
+下这个prop停止dump：setprop ms.frame.on 0
+
+pwd  查看当前文件路径
+必须在开发者选项里面打开USB调试，才可以链接adb
+

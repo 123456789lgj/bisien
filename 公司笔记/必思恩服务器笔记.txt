@@ -1,0 +1,547 @@
+Spring笔记：spring 叫做一站式解决框架，他有每一层的解决方案
+Spring MVC是web层
+orm object relational map 对象关系映射,对象和表建立一种对应关系
+日志记录包：向控制台打印东西，也可以输出到文件，也可以发送邮件
+Hibernate 方言是，告知hibernate你连接的是mysql数据库还是其他数据库，如果是mysql数据库的话，我用的方言就是mysql，就相当于告知别人你是哪的人，方便别人和你交流
+能够搭建IOC开发环境
+程序的耦合：程序之间的依赖关系，或者说是调用者和被调用者之间的关系，
+数据库MySQL，必须要用MySQL的驱动，有规范到规范，不要到实现的包
+编译时不依赖，运行时才依赖， 
+解决依赖关系，可以通过反射创建对象，编译时可以通过，但是运行时报错，
+举列子：
+注册驱动，这种注册的话必须要有mysql的驱动jar包才可以
+DriverManager.registerDriver(new com.mysql.jdbc.Driver());
+解决这种依赖关系可以通过反射来创建对象
+Class.froName("com.mysql.jdbc.Driver");
+通过反射创建对象，这种写死了，如果换驱动的话，必须修改源码，这种写法有问题，
+使用配置文件来读取，然后创建对象。Spring MVC涉及模式
+MVC涉及模式，是基于web层
+V 视图层
+C层 controller 控制层   接收请求，转发请求，委托模型层进行数据处理，返回相应数据，请求视图层进行视图渲染
+M层 数据模型层（javabean组件  ）
+任何的重定向都能解耦合
+
+
+
+
+
+java.net.ConnectException: Failed to connect to /192.168.1.145:8080
+
+
+
+
+
+单例对象和多例对象的线程安全
+Spring IOC 其实就是一个map集合
+Spring AOP 思想
+运行时提供所需要的对象，这种思想就叫做依赖注入（缺什么传递什么，通过配置文件告诉Spring创建对应的对象）
+用注解传递值xml
+
+这个是所对应的URL，URL在web.xml 中对应的是一个类的全路径：com.bisien.test.Demo
+<action="/Register/Demo">
+
+<form action="/Register/Demo?method=register" method="post">
+    <input type="submit" value="测试"/>
+    		
+</form>
+
+<servlet>
+  <description>This is the description of my J2EE component</description>
+  <display-name>This is the display name of my J2EE component</display-name>
+  <servlet-name>Demo</servlet-name>
+  <servlet-class>com.bisien.test.Demo</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>Demo</servlet-name>
+  <url-pattern>/Demo</url-pattern>
+</servlet-mapping>
+下载Spring jar包，导入spring-beans.jar spring-context.jar spring-core.jar spring-expression.jar
+在 src 目录下创建bean.xml 文件，然后添加约束，约束文件在 docs\spring-framework-reference\html\xsd-configuration.html
+ Spring的依赖输入
+	注入的方式有3中：
+		第一种：使用构造函数注入
+		第二种：使用set方法注入
+		第三种：使用注解注入
+	注入的数据类型有3种：
+		第一类：基本类型和String类型
+		第二种：其他bean类型（必须是在Spring的配置文件中出现过的bean）
+		第三种：复杂类型（集合类型）
+	涉及的标签：constructor-arg
+	标签的属性：
+		type：指定参数的类型
+		index：指定参数的索引位置，从0开始
+		name：指定参数的名称。 一般用它
+		---------------- 上面三个属性是指定给那个参数赋值的，下面连个属性是指定赋什么值--------------------------------------
+		value：指定基本数据类型或者是String类型的数据
+		ref：指定其他bean类型数据
+	标签出现的位置：
+		写在bean的标签内部 
+	
+	动态代理：
+	
+		作用：就是不改变源码的基础上，对已有的方法增强。（它是AOP思想的实现技术）
+		分类：
+			基于接口的动态代理：
+				要求：被代理类至少实现一个接口
+				提供者：JDK官方
+				涉及的类：Proxy
+				创建代理对象的方法：newProxyInstant(ClassLoader,Class[],InvocationHandler)
+				参数的含义：
+				ClassLoader：类加载器。和代理对象使用同一个类加载器。一般都是固定写法。
+				Class[]:字节码数组。被代理类实现的接口。（要求代理对象和被代理对象具有相同的行为）
+				InvocationHandler：它是一个接口，就是用于我们提供增强的代码的。
+								    它的含义就是：如何代理。此处代码只能是谁用谁提供
+			基于子类的动态代理：
+				被代理类不能是最终类，被代理类不能用final修型
+				提供者：第三方CGlib
+				涉及的类：Enhance
+				创建代理对象的方法：create(Class,Clallback)
+				参数含义：
+					Class：被代理对象的字节码
+					Callback：如何代理，它和InvocationHandler 的作用是一样的，它也是一个接口，我们使用该接口的MethodInterceptor,在使用的过程中
+					我们使用的是匿名内部类。
+	dpcp数据源，需要的jar包：
+	c3p0 数据源配置；c3p0.jar  mchange-commons-java.jar
+	PlatformTransactionManager接口，事务管理器DataSourceTransactionManager进行
+	事务的定义信息：传播行为，事务的隔离级别4种，脏读：一个事务读取到了另外一个事务没有提交的数据redCommited
+	不可重读：一个事务读到另一个事务已经提交到的update数据
+	虚读：一个事务读到另一个事务insert的数据
+	事务的超时时间：提交的时候发现超时 
+	只读事务：只有查是只读事务（对数据库数据没有改变的）
+	传播行为：A有事务，B没有事务，
+	
+	
+	Spring IOC
+	Spring AOP
+	Spring 事务
+	
+	SSH 整合： 保留Spring Struct2 Hibernate
+	整合步骤，严格按照步骤去整合
+	第一步：保证Spring的IOC容器能够在web工程中独立运行
+	第二步：保证hibernate 框架能够在web工程中独立运行（编写主配置文件）
+	第三步：整合Spring和hibernate
+			思考：怎么才算整合？
+			Spring接管了Hibernate的sessionFactory对象的创建（把sessionFactory存入Spring容器中）
+			使用Spring的声明式事务控制
+	第四步：保证struct2框架能够在web工程中独立运行
+	第五步：整合Spring和Struts2
+			action的创建交给Spring来管理
+			保证web工程中容器只有一个
+	第六步：优化已有的整合配置
+			配置文件的位置可以调整
+			配置文件的内容可以分不同文件来编写
+	
+	
+	
+	
+	<!--需要在开启事务的地方使用@Transational注解 
+		该注解可以写在类上、接口上、方法上
+		写在接口上表示该接口的所有实现类都有事务
+		写在类上表示该类的所有方法都是事务
+		写在方法上表示该方法有事务
+		优先级：就近原则，方法大于
+	-->
+	
+	项目更换虚拟目录之后，需要重新的移除项目，并且添加项目负责这个虚拟目录不可能生效
+	
+
+	
+	
+	
+	
+	
+	
+Struts 是建立在MVC的框架上的，MVC 框架优势层次结构分明，高可重用性，增加了程序的健壮性，
+它具有和其他框架很好的融合性，比如：Spring Hibernate
+structs 是Apache 下的开源框架
+导入jar包
+建立一个配置文件：struts-config.xml
+作用：方便Struts用户使用
+位置：一般放在WEB-INF下 
+	修改web.xml
+注册Struts 中心控制器--ActionServlet
+		
+		
+		
+		
+Struts2：
+	概述：struts 基于MVC模式的web应用框架，接收数据，封装数据，相应数据
+		  struts2 的内核相对于strut1 来讲已经发生了巨大变化
+		  两者只是名字相近，其实底层相差很远 
+		  web层的框架：SpringMVC Struct2，基于前端控制器模型设计
+		  传统的方式，有一个请求，就存在一个servlet
+		  前端请求--->Servlet--->处理数据
+		  前端请求--->Servlet--->处理数据
+		  前端控制器模型：
+			  所有的请求，都需要经过前端控制器（过滤器），再根据你具体的请求所要实现的功能，然后分发到不同的action处理 
+		  导入jar包
+		  war文件：web项目可以直接打成war包，直接放到Tomcat可以运行
+	创建web项目，引用相关jar 包		
+	然后在web.xml 文件下配置
+	<filter>
+		<filter-name>struts2</filter-name>
+		<!-- 配置strut过滤器配置类 -->
+		<filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>		
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<!-- /*表示所有的访问都需要进行过滤 -->
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	在src目录下创建strut.xml
+	配置相关内容
+	<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+	<struts>
+	<package name="lgj" extends="struts-default" namespace="/">
+		<!-- 这个name 表示的是你在jsp页面中a标签href="hello.action"
+			 class 是你需要把这个action交给那个java类进行处理，这里需要的是全类名
+		--> 
+		<action name="hello" class="com.bisien.strut2.Hello"></action>
+	</package>
+
+	</struts>
+	 
+	 ValueStack 实际上就是一个容器
+	 值栈，类似于数据的中转站，strut2 的框架当中的数据就都保存到ValueStack 中
+	 ValueStack 接口，实现类是OgnlValueStack对象
+	 valueStack贯穿整个Action的生命周期（Action 一旦创建了，框架就会创建一个ValueStack对象）
+	 只要存在valueStack 中的数据，不管到哪都可以把这个数据取出来，
+	 
+	 值栈内部结构：ValueStack 中有两个主要的区域
+			root区域其实就是ArrayList ，获取root数据不需要加#
+			OgnlContext区域：其实就是Map，有root的引用，还有request，session，application
+			parameters attr,常见的web开发对象的引用 
+	 我们所说的操作值栈，通常指的是操作的ValueStack中的root区域
+	 通过ActionContext：action的上下文
+	 通过源码查看到，当请求过来的时候，执行过滤器中的doFilter方法，在这个方法中创建ActionContext
+	 在创建ActionContext过程中，创建ValueStack对象，将ValueStack对象传递给ActionContext
+	 通过ActionContext 获取值栈的对象
+	 ActionContext对象之所以能访问Servlet的api，因为在其内部有值栈的引用
+	  
+	  获取值栈：
+	      通过ActionContext
+		  在strut2 值栈也存在request对象中 
+	
+	默认情况下Action会压入到值栈，那么action中的属性（成员变量）也会在值栈中   
+	/*
+ * 在spring中框架会根据目标类是否实现了接口来决定采用那种动态代理的方式
+ * Joinpointer（连接点）：所谓链接点就是指那些被拦截的点，在spring中，这些点指的是方法，因为spring只支持方法的连接点（接口中的所有方法）
+ * PointerCut（切入点）：是我们对那些JoinPointer方法进行拦截，被增强的就是切入点，没有被增强和被增强的都是连接点
+ * 					    连接点不一定是切入点，但是切入点一定是连接点
+ * Advice（通知）：通知是指拦截之后所要做的事情（你要增强的代码在哪，那个类就是通知）
+ * 				通知分为：前置通知，后置通知，异常通知，最终通知，环绕通知
+ * Target： 代理的目标对象
+ * Weaving:(织入)
+ * 			指的是增强代码的执行，就叫织入
+ * Proxy：最终的代理结果对象
+ * Aspect：切面是切入点和通知的结合
+ * 		  通知在切入点的什么时候执行
+ * 
+ * spring 中开启事务
+ * 		      提交事务
+ * 		      回滚事务
+ * 这些方法人家都知道在哪进行执行，所以就不用配置<aop:before="beginTransaction">
+ * 基于xml的aop配置
+ * */
+
+	 
+	 
+	 
+	 
+	 
+	 持久化类：Java类+ 映射文件
+	 持久化类编写：需要提供无参的构造方法
+					对类中的属性private  提供get和set方法
+					对持久化类提供一个唯一标识OID于数据库的主键对应：在java中怎么区分是否为同一个对象，主要看对象的哈希值
+					Hibernate中通过OID的属性值区分是否为同一个对象
+	 持久化类中的属性需要用包装类型：Long Integer 基本数据类型int 有默认的值为0
+	 包装类的类型默认值为null
+	 持久化类不要使用final修饰： 延迟加载本身是hibernate一个优化的手段，返回的是一个代理对象
+	 
+	 
+	 映射：主键生成策略
+			主键的分类：
+			自然主键：主键本身是表中的一个字段（实体中的一个具体属性）
+						创建一个人员表，使用身份证号作为主键，这种主键称为自然主键
+						
+			代理主键：主键本身不是表中必须的一个字段（不是实体中的某个具体的属性）
+			创建一个人员表：没有使用人员的身份证号，用了一个不相关的ID，这种主键称为代理主键
+			在实际开发中尽量使用代理主键
+				一旦自然主键参与到业务逻辑中，后期有可能需要修改源代码
+				主键是不允许修改的
+			代理主键：
+					hibernate的主键生成策略，一般不允许用户手动设置，
+					increment：hibernate中提供的一个自动增长的机制，适用于short int long 类型的主键
+								在单线程来使用，执行策略是先把id最大的值找出来，然后加一，在进行下条数据的插入
+					identity：自动增长，short int long类型的主键，使用的数据库底层的自动增长适用于数据库有
+								自动增长机制的数据库（MySQL MSSQL）但是Oracle是没有自动增长
+					sequence：适用于short int long类型的主键，采用的是序列的方式（oracle支持序列）
+					UUID：它是使用于字符串类型主键，使用hibernate中随机生成字符串主键（id 为32 位的字符串数据：<generator class="uuid.hex"/>  这是在hibernate3.0 之后，这个在配置时，需要指定对应的id为String类型）
+					native：本地策略，可以在identity和sequence之间进行自动切换（MySQL的话就是用identity，oracle的话采用sequence）
+					assign：hibernate放弃主键的管理，需要通过手动编写程序设置主键
+					
+					
+			持久化类的划分：
+				持久化类分为3中状态：
+				瞬时态：这种对象没有唯一的OID，没有被session管理，  new Customer()
+				持久态：这种对象有唯一标识OID，被session管理		session.save(customer) 这个对象处于持久态
+				脱管态（离线态，游离态）：有唯一的标识OID，没有被session管理  session.close() 之后，再使用customer这个时候就是脱管态
+				持久化类的持久态对象，可以自动更新数据库，这几种对象可以相互转化
+				 
+			hibernate 的一级缓存，session创建，一级缓存就存在，session 销毁了，一级缓存也就没有（证明一级缓存的存在，执行两次查询，观察是否，发送2次SQL语句）
+			hibernate 的二级缓存，sessionFactory级别，基本不用，
+			一级缓存内部结构，内存中的快照区
+			当执行一条查询命令的时候，此时会在缓存区，获取数据，然后保存一份数据到快照区，当修改某个属性值时，此时会把缓存区中的数据修改过来，但是快照区的数据不变
+			当提交事务的时候，此时会把缓存区的数据和快照区的数据做一个对比，如果数据一致的话，就不跟新数据库，如果数据不一致的话，就会跟新数据库，
+			当你执行close或者clear的话，一级缓存就会清空，
+			
+			数据库中表与表之间的关系
+				一对一：一个公司只能有一个注册地址，一个注册地址只能有一个公司注册
+					一对一的建表原则：唯一外键对应: 需要给外键创建约束，unique，不重复，就变成一个一对一
+									  主键对应：
+				一对一的建表几乎不用，因为这两个表可以合为一个表
+				
+				
+				一对多：一个部门可以对应多个员工，一个员工只能属于一个部门
+				一对多建表原则：在多的一方，创建外键指向一的一方主键
+				
+				
+				多对多：一个学生可以选择多门课，一门课可以被多个学生选择
+					多对多的建表原则：需要创建一个中间表，中间表至少有两个字段，分别作为外键指向多对多双方的主键
+					
+					
+				保存一遍会报错：持久态保存了一个瞬时态的关联
+				一对多：
+								
+					
+			
+	 
+	 
+	 
+	 
+	 
+	 
+	 
+	 ModbusSerialProtocol    这个是用来单个进行采集
+	 
+	 
+	 bisien/sig_list
+	 
+	 
+	 tbl_config_equipment; 此表存储的是设备的id，只要配置之后就会在数据库生成自己的id号
+	 tbl_base_equipmenttype; 此表是配置设备的type
+	 
+	 根据设备id查询当前的设备状态
+	 http://localhost:8080/gledeye/rest/status/get_list_rdata_byequipid/1002538209305730/6
+		
+	 这个是UPS设备的信息   1018538100592695 这是ups的id号
+	 http://localhost:8080/gledeye/rest/status/get_list_rdata_byequipid/1018538100592695/1
+	 
+	 StatusController      这个类是获取设备运行状态
+	 
+	 CommonDataController  获取设备的 对应的type值
+
+	 
+	 http://localhost:8080/gledeye/rest/basicdata/get_equipmenttypes  此接口是获取设备的type型号
+	  http://localhost:8080/gledeye/rest/basicdata/get_homepagedata_forweb   获取web首页中的数据，包括运行设备的总数，设备的运行状态
+	 
+	 EquipmentController   获取设备的id
+	 http://localhost:8080/gledeye/rest/equipment/get_list      此接口可以获取所有的设备信息，包括运行状态 和设备的id
+	
+	
+	
+	RoleController     根据id 不知道获取什么东西   对应的表示tal_system_role    好想是系统管理员权限                    
+	 http://localhost:8080/gledeye/rest/role/get_list_byuseridforweb/1  
+	 
+	 
+	 
+	 
+	 /rest/alarm/get_list_forweb 获取报警信息
+	 AlarmController
+	 
+	 
+	 
+	 
+	 
+	 channelType 1 表示数字量 ，是否告警，上面的状态，            "currentValue": 0.0, 0 代表关闭，1 表示开启，告警的话0代表无告警，1代表有告警
+	 
+	  channelType 2 表示模拟量
+	 
+	 
+	 
+	 HouseController
+	 http://localhost:8080/gledeye/rest/house/create  创建房间：比如三楼实验室
+	 
+	http://localhost:8080/gledeye/rest/signalparam/create_batch  配置参数
+	 
+	http://localhost:8080/gledeye/rest/reports/get_historyalarm  此接口根据页数查询是有问题的，
+	
+	根据设备类型获取对应的设备	
+	http://localhost:8080/gledeye/rest/equipment/get_list_bycategory/2
+		
+	运行正常是根据：acAlarm 是否为0，如果为0表示运行正常，否则表示运行异常
+	正常通讯设备：是根据 param2 进行判断
+	设备总数是: count 这个字段
+	
+		//
+		
+draw	622
+columns[0][data]	function
+columns[0][name]	
+columns[0][searchable]	true
+columns[0][orderable]	false
+columns[0][search][value]	
+columns[0][search][regex]	false
+columns[1][data]	function
+columns[1][name]	
+columns[1][searchable]	true
+columns[1][orderable]	true
+columns[1][search][value]	
+columns[1][search][regex]	false
+columns[2][data]	function
+columns[2][name]	
+columns[2][searchable]	true
+columns[2][orderable]	true
+columns[2][search][value]	
+columns[2][search][regex]	false
+columns[3][data]	function
+columns[3][name]	
+columns[3][searchable]	true
+columns[3][orderable]	true
+columns[3][search][value]	
+columns[3][search][regex]	false
+columns[4][data]	function
+columns[4][name]	
+columns[4][searchable]	true
+columns[4][orderable]	true
+columns[4][search][value]	
+columns[4][search][regex]	false
+columns[5][data]	function
+columns[5][name]	
+columns[5][searchable]	true
+columns[5][orderable]	true
+columns[5][search][value]	
+columns[5][search][regex]	false
+columns[6][data]	triggerValue
+columns[6][name]	
+columns[6][searchable]	true
+columns[6][orderable]	true
+columns[6][search][value]	
+columns[6][search][regex]	false
+columns[7][data]	startTime
+columns[7][name]	
+columns[7][searchable]	true
+columns[7][orderable]	true
+columns[7][search][value]	
+columns[7][search][regex]	false
+columns[8][data]	function
+columns[8][name]	
+columns[8][searchable]	true
+columns[8][orderable]	true
+columns[8][search][value]	
+columns[8][search][regex]	false
+columns[9][data]	function
+columns[9][name]	
+columns[9][searchable]	true
+columns[9][orderable]	true
+columns[9][search][value]	
+columns[9][search][regex]	false
+columns[10][data]	function
+columns[10][name]	
+columns[10][searchable]	true
+columns[10][orderable]	true
+columns[10][search][value]	
+columns[10][search][regex]	false
+columns[11][data]	confirmer
+columns[11][name]	
+columns[11][searchable]	true
+columns[11][orderable]	true
+columns[11][search][value]	
+columns[11][search][regex]	false
+order[0][column]	0
+order[0][dir]	asc
+start	0
+length	10
+search[value]	
+search[regex]	false
+paramstr	{"stationId":-1,"houseId":-1,"equipmentId":-1,"alarmGrade":1,"startTime":"2010-01-01+00:00:00","endTime":"2019-09-11+14:02:33","equipmenttype":"-1"}	
+		
+		
+stationId 是局站id    houseId 是房间信息比如二楼实验室
+"stationId":8546069125419008,"houseId":8622681966107648,"	
+		
+		
+		
+
+getEquipmentType :2
+
+getEquipmentType :-1
+
+locationName :草堂加速器, locationId :123456
+getEquipmentType :-1
+
+getEquipmentType :-1
+
+admin
+21232f297a57a5a743894a0e4a801fc3
+before---------------------------
+operationName :用户登录
+baseDAO ----------------------------
+exsitedUser !=null :com.bisien.domain.core.entities.system.User@2d3ecee0
+after---------------------------
+baseDAO ----------------------------
+
+
+
+
+
+
+
+2019-09-18 11:08:46.415 8397-8397/com.bisien.dems I/class com.bisien.dems.activity.fragment.HomeFragment lgj: onCreateViewHomeFragment{3d89ebc #0 id=0x7f080084}
+2019-09-18 11:08:46.443 8397-8397/com.bisien.dems I/class com.bisien.dems.activity.fragment.AlarmFragment lgj: onCreateViewAlarmFragment{eeeeaa8 #1 id=0x7f080084}
+2019-09-18 11:08:46.457 8397-8397/com.bisien.dems I/class com.bisien.dems.activity.fragment.StatusFragment lgj: onCreateViewStatusFragment{e4b70a7 #2 id=0x7f080084}
+2019-09-18 11:08:46.465 8397-8397/com.bisien.dems I/class com.bisien.dems.activity.fragment.SettingsFragment lgj: onCreateViewSettingsFragment{aa071f2 #3 id=0x7f080084}
+2019-09-18 11:08:46.487 8397-8397/com.bisien.dems I/class com.bisien.dems.activity.fragment.MyFragment lgj: onCreateViewMyFragment{14c6ff9 #4 id=0x7f080084}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+22a499a
+
+e772531
+
+2019-09-18 11:27:09.313 10548-10548/com.bisien.dems I/System.out: initData -------------------HistoryAlarmFragment{767d152 #6 id=0x7f080110 android:switcher:2131230992:1}
+
+
+
+
+java.net.ConnectException: Failed to connect to /192.168.1.145:8080
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

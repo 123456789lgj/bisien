@@ -1,0 +1,93 @@
+第一天上班在必思恩碰到一个问题就是屏幕显示非常模糊，最开始以为是没有独立显卡导致，最后发现是VGA线损毁导致
+同一个包下自然就不需要导包 导入R文件的包
+如果发现错误码是404，那么肯定是你的地址写的有问题，或者是你服务器返回的地址有问题，"/demom/index.jsp"
+
+inflating class com.google.android.material.tabs.TabLayout
+360*640 放在这个文件下drawable-mdpi 并且它的屏幕密度比上160 为1 等于说就不用缩放或者扩大，就按照实际的数值写就行 
+
+mysql-workbench-community-8.0.16-winx64 安装这个软件之前，必须要安装Visual C++ Redistributable for Visual Studio 2015 在实际操作中可以根据英文提示来执行
+
+update mysql.user set password=password('321') where user = 'root';   修改的密码是321
+
+2019-07-01 13:56:52.633 28322-28322/com.bisien.dems I/class com.bisien.dems.activity.LoginActivity lgj: dialog :android.app.Dialog@4f38555
+2019-07-01 13:56:52.653 28322-28322/com.bisien.dems I/class com.bisien.dems.activity.LoginActivity lgj: dialog :android.app.Dialog@7080a0d
+2019-07-01 13:56:52.807 28322-28322/com.bisien.dems I/class com.bisien.dems.activity.LoginActivity lgj: dissmissDialog.........android.app.Dialog@7080a0d
+Dialog没有消失的原因，同时创建多个Dialog，并且都调用了show的方法，在取消的时候只调用了一个Dialog的dissmiss方法所以导致Dialog没有消失
+
+服务端记录，
+ServletConfig 这个对象主要的作用是用来多个Servlet进行共享数据的，它里面有存储数据的方法 setAttribute(String ,Object);
+
+自定义控件如果继承ViewGroup，那么所有的事情都需要自己完成，尤其是它里面孩子的元素都需要自己进行测量然后摆放位置，
+继承LinearLayout和FrameLayout这些控件，onMeasure 和onLayout 他们内部已经完全实现，不需要自己去写
+
+
+onMeasure中的两个参数是父控件传递过来的，
+如果发现控件不显示的情况，那么你就要考虑控件是否测量准确，还有控件是否摆放位置正确，
+
+http://localhost:8080/gledeye/rest/user/check_login
+
+surplus [se pluy] 剩余的意思
+
+
+myeclipse项目上面出现感叹号，是因为引用的jar包不存在所导致，解决办法
+1，右键项目
+2，选择buildPath
+3，选择Configure Build Path
+4，选择Libraies
+5，看哪个包前面有红色感叹号，选择，点击remove
+
+//SQL 语句更新的时，报这个错误Invalid argument value: java.io.NotSerializableException 如果报这个错误，我遇到的情况就是里面的参数传值有问题
+
+{"name":"admin",
+"password":"admin"
+}
+tomcat 为什么会访问index.jsp 页面就是因为在conf 目录下的web.xml文件默认配置了下面文件
+<welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+</welcome-file-list>
+	
+	
+	
+	
+	
+please input register name:
+lgj
+Serial:yLR8ZC-855575-7752765045837156
+
+如果配置了<welcome-file-list></welcome-file-list>这个标签，那么默认访问地址就会遵循这个访问链接
+如果没有配置这个链接，那么访问的地址就会通过Tomcat 下的conf文件夹下的web.xml
+
+
+
+tbl_config_equipment
+
+
+GlobalDataGlobalDataGlobalDataGlobalData-------------
+applicationContext ----------注入了
+GlobalDataGlobalDataGlobalDataGlobalData-------------
+JQuery ： 是JavaScript的一个库
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+
